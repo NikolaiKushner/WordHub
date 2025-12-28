@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals";
+import { Button, Input } from "../components/ui/index.ts";
 
 interface ProfileFormProps {
   email: string;
@@ -65,39 +66,25 @@ export default function ProfileForm({ email, fullName, role, createdAt }: Profil
       )}
 
       <form onSubmit={handleSubmit} class="space-y-6">
-        <div>
-          <label
-            for="email"
-            class="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            disabled
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
-          />
-          <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
-        </div>
+        <Input
+          label="Email Address"
+          type="email"
+          id="email"
+          value={email}
+          disabled
+          helperText="Email cannot be changed"
+          fullWidth
+        />
 
-        <div>
-          <label
-            for="fullName"
-            class="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            value={name.value}
-            onInput={(e) => (name.value = (e.target as HTMLInputElement).value)}
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            placeholder="John Doe"
-          />
-        </div>
+        <Input
+          label="Full Name"
+          type="text"
+          id="fullName"
+          value={name.value}
+          onInput={(e) => (name.value = (e.target as HTMLInputElement).value)}
+          placeholder="John Doe"
+          fullWidth
+        />
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -125,19 +112,22 @@ export default function ProfileForm({ email, fullName, role, createdAt }: Profil
         </div>
 
         <div class="flex gap-4">
-          <button
+          <Button
             type="submit"
-            disabled={loading.value}
-            class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="primary"
+            fullWidth
+            loading={loading.value}
           >
             {loading.value ? "Saving..." : "Save Changes"}
-          </button>
-          <a
-            href="/dashboard"
-            class="flex-1 text-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 font-medium transition-colors"
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            fullWidth
+            onClick={() => window.location.href = "/dashboard"}
           >
             Cancel
-          </a>
+          </Button>
         </div>
       </form>
     </div>

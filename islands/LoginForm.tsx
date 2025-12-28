@@ -1,5 +1,7 @@
 import { useSignal } from "@preact/signals";
 import { createClient } from "@supabase/supabase-js";
+import { validateEmail } from "../lib/validators.ts";
+import { Button, Input, Checkbox } from "../components/ui/index.ts";
 
 interface LoginFormProps {
   supabaseUrl: string;
@@ -18,6 +20,14 @@ export default function LoginForm({ supabaseUrl, supabaseAnonKey }: LoginFormPro
     e.preventDefault();
     loading.value = true;
     error.value = "";
+
+    // Validate email
+    const emailValidation = validateEmail(email.value);
+    if (!emailValidation.isValid) {
+      error.value = emailValidation.error || "Invalid email";
+      loading.value = false;
+      return;
+    }
 
     try {
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -121,35 +131,31 @@ export default function LoginForm({ supabaseUrl, supabaseAnonKey }: LoginFormPro
         </div>
 
         <form onSubmit={handleSubmit} class="space-y-4">
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              required
-              value={email.value}
-              onInput={(e) => (email.value = (e.target as HTMLInputElement).value)}
-              class="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-              placeholder="name@email.com"
-            />
-          </div>
-
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              required
-              value={password.value}
-              onInput={(e) => (password.value = (e.target as HTMLInputElement).value)}
-              class="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-              placeholder="Enter your password"
-            />
-          </div>
+          <Input
+            label="Email"
+            type="email"
+            id="email"
+            required
+            value={email.value}
+            onInput={(e) => (email.value = (e.target as HTMLInputElement).value)}
+            placeholder="name@email.com"
+            fullWidth
+            variant="filled"
+            size="md"
+          />
+          <Input
+            label="Password"
+            type="password"
+            id="password"
+            required
+            minLength={6}
+            value={password.value}
+            onInput={(e) => (password.value = (e.target as HTMLInputElement).value)}
+            placeholder="Create a password (min. 6 characters)"
+            fullWidth
+            variant="filled"
+            size="md"
+          />
 
           <div class="flex items-center justify-between pt-2">
             <div class="flex items-center">
@@ -171,13 +177,16 @@ export default function LoginForm({ supabaseUrl, supabaseAnonKey }: LoginFormPro
             </div>
           </div>
 
-          <button
+          <Button
             type="submit"
-            disabled={loading.value}
-            class="w-full bg-gray-900 text-white py-3.5 px-4 rounded-xl hover:bg-gray-800 transition-colors font-medium text-base disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+            variant="primary"
+            size="md"
+            fullWidth
+            loading={loading.value}
+            class="mt-6"
           >
             {loading.value ? "Signing in..." : "Continue with email"}
-          </button>
+          </Button>
         </form>
       </div>
 

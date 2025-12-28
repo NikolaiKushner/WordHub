@@ -1,5 +1,7 @@
 import { useSignal } from "@preact/signals";
 import { createClient } from "@supabase/supabase-js";
+import { validateEmail, validatePassword } from "../lib/validators.ts";
+import { Button, Input } from "../components/ui/index.ts";
 
 interface RegisterFormProps {
   supabaseUrl: string;
@@ -22,6 +24,22 @@ export default function RegisterForm({ supabaseUrl, supabaseAnonKey }: RegisterF
     error.value = "";
     success.value = "";
 
+    // Validate email
+    const emailValidation = validateEmail(email.value);
+    if (!emailValidation.isValid) {
+      error.value = emailValidation.error || "Invalid email";
+      loading.value = false;
+      return;
+    }
+
+    // Validate password
+    const passwordValidation = validatePassword(password.value, 6);
+    if (!passwordValidation.isValid) {
+      error.value = passwordValidation.errors[0] || "Invalid password";
+      loading.value = false;
+      return;
+    }
+
     try {
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: email.value,
@@ -42,7 +60,11 @@ export default function RegisterForm({ supabaseUrl, supabaseAnonKey }: RegisterF
         }, 2000);
       }
     } catch (err) {
-      error.value = err.message;
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = "An unknown error occurred";
+      }
       loading.value = false;
     }
   };
@@ -59,8 +81,12 @@ export default function RegisterForm({ supabaseUrl, supabaseAnonKey }: RegisterF
       });
 
       if (oauthError) throw oauthError;
-    } catch (err) {
-      error.value = err.message;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = "An unknown error occurred";
+      }
     }
   };
 
@@ -124,60 +150,57 @@ export default function RegisterForm({ supabaseUrl, supabaseAnonKey }: RegisterF
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} class="space-y-4">
-          <div>
-            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              value={fullName.value}
-              onInput={(e) => (fullName.value = (e.target as HTMLInputElement).value)}
-              class="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-              placeholder="John Doe"
-            />
-          </div>
+      <form onSubmit={handleSubmit} class="space-y-4">
+        <Input
+          label="Full Name"
+          type="text"
+          id="fullName"
+          value={fullName.value}
+          onInput={(e) => (fullName.value = (e.target as HTMLInputElement).value)}
+          placeholder="John Doe"
+          fullWidth
+          variant="filled"
+          size="md"
+        />
 
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              required
-              value={email.value}
-              onInput={(e) => (email.value = (e.target as HTMLInputElement).value)}
-              class="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-              placeholder="name@email.com"
-            />
-          </div>
+        <Input
+          label="Email"
+          type="email"
+          id="email"
+          required
+          value={email.value}
+          onInput={(e) => (email.value = (e.target as HTMLInputElement).value)}
+          placeholder="name@email.com"
+          fullWidth
+          variant="filled"
+          size="md"
+        />
 
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              required
-              minLength={6}
-              value={password.value}
-              onInput={(e) => (password.value = (e.target as HTMLInputElement).value)}
-              class="w-full px-4 py-3.5 bg-gray-50 border-0 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
-              placeholder="Create a password (min. 6 characters)"
-            />
-          </div>
+        <Input
+          label="Password"
+          type="password"
+          id="password"
+          required
+          minLength={6}
+          value={password.value}
+          onInput={(e) => (password.value = (e.target as HTMLInputElement).value)}
+          placeholder="Create a password (min. 6 characters)"
+          fullWidth
+          variant="filled"
+          size="md"
+        />
 
-          <button
-            type="submit"
-            disabled={loading.value}
-            class="w-full bg-gray-900 text-white py-3.5 px-4 rounded-xl hover:bg-gray-800 transition-colors font-medium text-base disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-          >
-            {loading.value ? "Creating account..." : "Continue with email"}
-          </button>
-        </form>
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          fullWidth
+          loading={loading.value}
+          class="mt-6"
+        >
+          {loading.value ? "Creating account..." : "Continue with email"}
+        </Button>
+      </form>
       </div>
 
       <p class="text-center text-sm text-gray-600 mt-8">

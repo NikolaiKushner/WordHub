@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals";
+import { Button, Select } from "../components/ui/index.ts";
 
 interface UserProfile {
   id: string;
@@ -145,24 +146,26 @@ function UserRow({ user, onRoleUpdate }: UserRowProps) {
         {new Date(user.created_at).toLocaleDateString()}
       </td>
       <td class="px-6 py-4 whitespace-nowrap text-sm">
-        <form onSubmit={handleSubmit} class="inline">
-          <select
+        <form onSubmit={handleSubmit} class="flex items-center gap-2">
+          <Select
             value={selectedRole.value}
             onChange={(e) =>
               (selectedRole.value = (e.target as HTMLSelectElement)
                 .value as "regular" | "superadmin")
             }
-            class="text-sm border border-gray-300 rounded px-2 py-1 mr-2"
-          >
-            <option value="regular">Regular</option>
-            <option value="superadmin">Superadmin</option>
-          </select>
-          <button
+            options={[
+              { value: "regular", label: "Regular" },
+              { value: "superadmin", label: "Superadmin" },
+            ]}
+            class="text-sm"
+          />
+          <Button
             type="submit"
-            class="text-indigo-600 hover:text-indigo-900"
+            variant="ghost"
+            size="sm"
           >
             Update
-          </button>
+          </Button>
         </form>
       </td>
     </tr>
