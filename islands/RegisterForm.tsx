@@ -58,10 +58,10 @@ export default function RegisterForm(
       if (data.user) {
         success.value = "Registration successful! Redirecting to login...";
         setTimeout(() => {
-          window.location.href = "/login";
+          globalThis.location.href = "/login";
         }, 2000);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message;
       } else {
@@ -78,7 +78,7 @@ export default function RegisterForm(
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin + "/auth/callback",
+          redirectTo: globalThis.location.origin + "/auth/callback",
         },
       });
 

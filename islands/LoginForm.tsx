@@ -54,13 +54,17 @@ export default function LoginForm(
         });
 
         if (response.ok) {
-          window.location.href = "/dashboard";
+          globalThis.location.href = "/dashboard";
         } else {
           throw new Error("Failed to set session");
         }
       }
-    } catch (err) {
-      error.value = err.message;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = "An unknown error occurred";
+      }
       loading.value = false;
     }
   };
@@ -72,13 +76,17 @@ export default function LoginForm(
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin + "/auth/callback",
+          redirectTo: globalThis.location.origin + "/auth/callback",
         },
       });
 
       if (oauthError) throw oauthError;
-    } catch (err) {
-      error.value = err.message;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = "An unknown error occurred";
+      }
     }
   };
 

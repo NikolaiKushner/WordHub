@@ -39,14 +39,14 @@ export default function UserManagementTable(
       });
 
       if (response.ok) {
-        window.location.reload();
+        globalThis.location.reload();
       } else {
         const data = await response.json();
         throw new Error(data.error || "Failed to update role");
       }
-    } catch (err) {
-      error.value = err.message;
-      alert("Error: " + err.message);
+    } catch (err: unknown) {
+      error.value = err instanceof Error ? err.message : "Unknown error";
+      alert("Error: " + error.value);
     }
   };
 
@@ -120,7 +120,7 @@ function UserRow({ user, onRoleUpdate }: UserRowProps) {
     <tr>
       <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center">
-          <div class="flex-shrink-0 h-10 w-10">
+          <div class="shrink-0 h-10 w-10">
             <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
               <span class="text-indigo-600 font-medium text-sm">
                 {(user.full_name || user.email)[0].toUpperCase()}

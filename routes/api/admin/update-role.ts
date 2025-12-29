@@ -57,7 +57,7 @@ export const handler = define.handlers({
 
       const { error } = await supabase
         .from("user_profiles")
-        .update({ role })
+        .update({ role } as never)
         .eq("id", userId);
 
       if (error) {
@@ -80,7 +80,7 @@ export const handler = define.handlers({
       );
     } catch (error) {
       return new Response(
-        JSON.stringify({ error: error.message }),
+        JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
         {
           status: 500,
           headers: { "Content-Type": "application/json" },

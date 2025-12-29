@@ -40,8 +40,12 @@ export default function ProfileForm(
       setTimeout(() => {
         success.value = "";
       }, 3000);
-    } catch (err) {
-      error.value = err.message;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = "An unknown error occurred";
+      }
     } finally {
       loading.value = false;
     }
@@ -126,7 +130,7 @@ export default function ProfileForm(
             type="button"
             variant="secondary"
             fullWidth
-            onClick={() => window.location.href = "/dashboard"}
+            onClick={() => globalThis.location.href = "/dashboard"}
           >
             Cancel
           </Button>

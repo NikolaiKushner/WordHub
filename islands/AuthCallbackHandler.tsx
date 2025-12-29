@@ -34,17 +34,20 @@ export default function AuthCallbackHandler(
           });
 
           if (response.ok) {
-            window.location.href = "/dashboard";
+            globalThis.location.href = "/dashboard";
           } else {
             throw new Error("Failed to set session");
           }
         } else {
-          window.location.href = "/login";
+          globalThis.location.href = "/login";
         }
-      } catch (error) {
-        console.error("Auth callback error:", error);
-        window.location.href = "/login?error=" +
-          encodeURIComponent(error.message);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error
+          ? error.message
+          : "Unknown error";
+        console.error("Auth callback error:", errorMessage);
+        globalThis.location.href = "/login?error=" +
+          encodeURIComponent(errorMessage);
       }
     };
 
