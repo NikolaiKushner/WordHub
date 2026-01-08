@@ -17,21 +17,44 @@ export const handler = define.handlers({
       }
 
       const body = await ctx.req.json();
-      const { fullName } = body;
+      const { newPassword } = body;
 
+      if (!newPassword) {
+        return new Response(
+          JSON.stringify({ error: "New password is required" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+
+      if (newPassword.length < 6) {
+        return new Response(
+          JSON.stringify({ error: "Password must be at least 6 characters" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+
+      // Create authenticated Supabase client using session token
       const supabase = createSupabaseClient(session.accessToken);
 
-      const { error } = await supabase
-        .from("user_profiles")
-        .update({ full_name: fullName } as never)
-        .eq("id", session.user.id);
+      // Update user password
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
 
       if (error) {
-        console.error("Error updating profile:", error);
+        console.error("Error changing password:", error);
         return new Response(
-          JSON.stringify({ error: "Failed to update profile" }),
+          JSON.stringify({
+            error: error.message || "Failed to change password",
+          }),
           {
-            status: 500,
+            status: 400,
             headers: { "Content-Type": "application/json" },
           },
         );
@@ -45,6 +68,7 @@ export const handler = define.handlers({
         },
       );
     } catch (error) {
+      console.error("Error in change-password endpoint:", error);
       return new Response(
         JSON.stringify({
           error: error instanceof Error ? error.message : "Unknown error",

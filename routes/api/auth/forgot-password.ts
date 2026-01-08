@@ -39,7 +39,8 @@ export const handler = define.handlers({
       return new Response(
         JSON.stringify({
           success: true,
-          message: "If an account exists with this email, a password reset link has been sent.",
+          message:
+            "If an account exists with this email, a password reset link has been sent.",
         }),
         {
           status: 200,

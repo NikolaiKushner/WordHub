@@ -5,11 +5,13 @@ type InputElement = JSX.IntrinsicElements["input"];
 interface CheckboxProps extends Omit<InputElement, "type"> {
   label?: string;
   error?: string;
+  helperText?: string;
 }
 
 export default function Checkbox({
   label,
   error,
+  helperText,
   className = "",
   id,
   ...props
@@ -39,6 +41,9 @@ export default function Checkbox({
             {label}
           </label>
           {error && <p class="text-sm text-red-600 mt-1">{error}</p>}
+          {helperText && !error && (
+            <p class="text-xs text-gray-500 mt-1">{helperText}</p>
+          )}
         </div>
       )}
     </div>

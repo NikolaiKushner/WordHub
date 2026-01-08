@@ -35,3 +35,30 @@ export function getSupabaseConfig() {
     anonKey: supabaseAnonKey,
   };
 }
+
+// Create admin Supabase client with service role key (for server-side admin operations)
+export function createAdminSupabaseClient(): SupabaseClient<Database> {
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
+  if (!serviceRoleKey) {
+    throw new Error(
+      "Missing SUPABASE_SERVICE_ROLE_KEY environment variable. This is required for admin operations.",
+    );
+  }
+
+  // Trim whitespace in case there's any
+  const trimmedKey = serviceRoleKey.trim();
+
+  if (!trimmedKey || trimmedKey.length === 0) {
+    throw new Error(
+      "SUPABASE_SERVICE_ROLE_KEY is empty. Please check your environment variables.",
+    );
+  }
+
+  return createClient<Database>(supabaseUrl, trimmedKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}

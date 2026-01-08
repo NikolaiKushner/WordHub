@@ -35,7 +35,8 @@ export default function ResetPasswordForm(
       const errorParam = hashParams.get("error");
 
       if (errorParam) {
-        error.value = "Invalid or expired reset link. Please request a new one.";
+        error.value =
+          "Invalid or expired reset link. Please request a new one.";
         return;
       }
 
@@ -47,11 +48,13 @@ export default function ResetPasswordForm(
         });
 
         if (sessionError) {
-          error.value = "Invalid or expired reset link. Please request a new one.";
+          error.value =
+            "Invalid or expired reset link. Please request a new one.";
         }
       } else if (!token && !type && !globalThis.location.hash) {
         // Only show error if we don't have hash params and no token/type
-        error.value = "Invalid reset link. Please check your email for the correct link.";
+        error.value =
+          "Invalid reset link. Please check your email for the correct link.";
       }
     };
 
@@ -227,8 +230,9 @@ export default function ResetPasswordForm(
           required
           minLength={6}
           value={confirmPassword.value}
-          onInput={(e) =>
-            (confirmPassword.value = (e.target as HTMLInputElement).value)}
+          onInput={(
+            e,
+          ) => (confirmPassword.value = (e.target as HTMLInputElement).value)}
           placeholder="Confirm new password"
           fullWidth
           variant="filled"
