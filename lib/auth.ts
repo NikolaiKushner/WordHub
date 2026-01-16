@@ -7,6 +7,9 @@ export type UserProfile = Database["public"]["Tables"]["user_profiles"]["Row"];
 export interface AuthUser {
   user: User;
   profile: UserProfile;
+  session: {
+    accessToken: string;
+  };
 }
 
 // Extract session from cookies
@@ -63,6 +66,7 @@ export async function getAuthUser(req: Request): Promise<AuthUser | null> {
   return {
     user: session.user,
     profile,
+    session,
   };
 }
 

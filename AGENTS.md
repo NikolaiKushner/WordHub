@@ -14,10 +14,9 @@ otherwise.
 ## UI Components
 
 - Use the shared UI components in `components/ui/` everywhere possible.
-- If a needed component does not exist, add it to `components/ui/` and export
-  it from both `components/ui/index.ts` and `components/index.ts`, then update
-  the component docs (`components/ui/README.md` and `COMPONENTS.md`) if
-  applicable.
+- If a needed component does not exist, add it to `components/ui/` and export it
+  from both `components/ui/index.ts` and `components/index.ts`, then update the
+  component docs (`components/ui/README.md` and `COMPONENTS.md`) if applicable.
 - Keep styling consistent with the existing design system (Tailwind + DaisyUI
   patterns already in use).
 
@@ -34,8 +33,7 @@ otherwise.
 - `routes/` — Page routes and route-level middleware.
   - Add new pages as `routes/*.tsx`.
   - Use `routes/_middleware.ts` for global auth checks.
-  - Admin-only pages live in `routes/admin/` with
-    `routes/admin/_middleware.ts`.
+  - Admin-only pages live in `routes/admin/` with `routes/admin/_middleware.ts`.
 - `routes/api/` — Backend API endpoints.
   - Add new backend logic here (database reads/writes, auth, etc).
   - Keep endpoint concerns focused and return consistent JSON.
@@ -54,4 +52,3 @@ otherwise.
 - Preserve existing UX flows unless the task explicitly changes them.
 - Prefer explicit error handling and user-friendly messages.
 - Avoid direct DOM manipulation; use Preact patterns.
-

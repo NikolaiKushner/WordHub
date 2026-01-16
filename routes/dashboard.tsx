@@ -1,9 +1,12 @@
 import { define } from "../utils.ts";
 import { Head } from "fresh/runtime";
 import { getAuthUser, isSuperAdmin } from "../lib/auth.ts";
+import type { AuthUser } from "../lib/auth.ts";
+import { createSupabaseClient } from "../lib/supabase.ts";
+import type { Link } from "../lib/database.types.ts";
 
 export default define.page(async function Dashboard(ctx) {
-  const authUser = await getAuthUser(ctx.req);
+  const authUser = await getAuthUser(ctx.req) as AuthUser | null;
 
   if (!authUser) {
     return new Response("", {
@@ -12,8 +15,23 @@ export default define.page(async function Dashboard(ctx) {
     });
   }
 
-  const { user, profile } = authUser;
+  const { user, profile, session } = authUser;
   const isAdmin = isSuperAdmin(profile);
+
+  const supabase = createSupabaseClient(session.accessToken);
+  const { data: publicProfile } = await supabase
+    .from("public_profiles")
+    .select("username, page_views, is_published")
+    .eq("user_id", user.id)
+    .single();
+
+  const { data: links } = await supabase
+    .from("links")
+    .select("id, clicks")
+    .eq("user_id", user.id);
+
+  const totalClicks = links?.reduce((sum, link: Link) =>
+    sum + (link.clicks || 0), 0) || 0;
 
   return (
     <>
@@ -92,25 +110,59 @@ export default define.page(async function Dashboard(ctx) {
               </div>
             </div>
 
-            {/* Quick Stats */}
-            <div class="bg-white rounded-lg shadow p-6">
-              <h2 class="text-lg font-semibold text-gray-900 mb-4">
-                Quick Stats
-              </h2>
+            {/* Link in Bio Card */}
+            <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">My Links</h2>
+                <a
+                  href="/links"
+                  class="text-sm text-white/80 hover:text-white"
+                >
+                  Manage →
+                </a>
+              </div>
               <div class="space-y-4">
-                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-white/10 rounded-lg">
                   <div>
-                    <p class="text-sm text-gray-600">Account Status</p>
-                    <p class="text-lg font-semibold text-blue-600">Active</p>
+                    <p class="text-sm text-white/70">Page Views</p>
+                    <p class="text-2xl font-bold">
+                      {publicProfile?.page_views || 0}
+                    </p>
                   </div>
                 </div>
-                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-white/10 rounded-lg">
                   <div>
-                    <p class="text-sm text-gray-600">Last Login</p>
-                    <p class="text-lg font-semibold text-green-600">Today</p>
+                    <p class="text-sm text-white/70">Total Clicks</p>
+                    <p class="text-2xl font-bold">{totalClicks}</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/10 rounded-lg">
+                  <div>
+                    <p class="text-sm text-white/70">Status</p>
+                    <p class="text-lg font-semibold">
+                      {publicProfile?.is_published ? "Published" : "Draft"}
+                    </p>
                   </div>
                 </div>
               </div>
+              {publicProfile?.username && publicProfile?.is_published && (
+                <a
+                  href={`/@${publicProfile.username}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 block w-full text-center px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-white/90 transition-colors font-medium"
+                >
+                  View Public Page
+                </a>
+              )}
+              {!publicProfile && (
+                <a
+                  href="/links"
+                  class="mt-4 block w-full text-center px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-white/90 transition-colors font-medium"
+                >
+                  Create Your Page
+                </a>
+              )}
             </div>
 
             {/* Admin Panel */}
@@ -136,28 +188,32 @@ export default define.page(async function Dashboard(ctx) {
               </div>
             )}
 
-            {/* Regular User Actions */}
-            {!isAdmin && (
-              <div class="bg-white rounded-lg shadow p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">
-                  Quick Actions
-                </h2>
-                <div class="space-y-3">
-                  <a
-                    href="/profile"
-                    class="block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                  >
-                    Edit Profile
-                  </a>
-                  <a
-                    href="/settings"
-                    class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
-                  >
-                    Settings
-                  </a>
-                </div>
+            {/* Quick Actions - shown for all users */}
+            <div class="bg-white rounded-lg shadow p-6">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h2>
+              <div class="space-y-3">
+                <a
+                  href="/links"
+                  class="block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                >
+                  Manage Links
+                </a>
+                <a
+                  href="/profile"
+                  class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Edit Profile
+                </a>
+                <a
+                  href="/settings"
+                  class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Settings
+                </a>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Welcome Message */}
