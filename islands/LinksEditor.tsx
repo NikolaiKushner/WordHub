@@ -35,6 +35,7 @@ export default function LinksEditor(
   const username = useSignal(initialProfile?.username || "");
   const displayName = useSignal(initialProfile?.display_name || "");
   const bio = useSignal(initialProfile?.bio || "");
+  const avatarUrl = useSignal(initialProfile?.avatar_url || "");
   const theme = useSignal<ProfileTheme>(initialProfile?.theme || "default");
   const isPublished = useSignal(initialProfile?.is_published || false);
   const hasProfile = useSignal(!!initialProfile);
@@ -53,6 +54,7 @@ export default function LinksEditor(
   const editingLinkId = useSignal<string | null>(null);
   const editLinkTitle = useSignal("");
   const editLinkUrl = useSignal("");
+  const uploadingAvatar = useSignal(false);
 
   // Check username availability
   const checkUsername = async (value: string) => {
@@ -128,6 +130,59 @@ export default function LinksEditor(
         : "Failed to save profile";
     } finally {
       loading.value = false;
+    }
+  };
+
+  // Upload avatar
+  const uploadAvatar = async (e: Event) => {
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      error.value = "Please upload a JPEG, PNG, or WebP image";
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      error.value = "File too large. Maximum size is 2MB";
+      return;
+    }
+
+    uploadingAvatar.value = true;
+    error.value = "";
+
+    try {
+      const formData = new FormData();
+      formData.append("avatar", file);
+
+      const res = await fetch("/api/profile/upload-avatar", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to upload avatar");
+      }
+
+      avatarUrl.value = data.avatar_url;
+      success.value = "Avatar uploaded successfully!";
+      setTimeout(() => success.value = "", 3000);
+    } catch (err) {
+      error.value = err instanceof Error
+        ? err.message
+        : "Failed to upload avatar";
+    } finally {
+      uploadingAvatar.value = false;
+      // Reset file input
+      input.value = "";
     }
   };
 
@@ -324,6 +379,60 @@ export default function LinksEditor(
         </h2>
 
         <div class="space-y-4">
+          {/* Avatar Upload */}
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              Profile Photo
+            </label>
+            <div class="flex items-center gap-4">
+              {/* Avatar Preview */}
+              <div class="relative">
+                {avatarUrl.value
+                  ? (
+                    <img
+                      src={avatarUrl.value}
+                      alt="Profile avatar"
+                      class="w-20 h-20 rounded-full object-cover ring-2 ring-gray-200"
+                    />
+                  )
+                  : (
+                    <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
+                      <span class="text-2xl text-gray-500">
+                        {(displayName.value || username.value || "?")
+                          .charAt(0)
+                          .toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+                {uploadingAvatar.value && (
+                  <div class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center">
+                    <div class="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin">
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Upload Button */}
+              <div class="flex-1">
+                <label class="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    onChange={uploadAvatar}
+                    disabled={uploadingAvatar.value}
+                    class="hidden"
+                  />
+                  <span class="inline-block px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    {uploadingAvatar.value ? "Uploading..." : "Upload Photo"}
+                  </span>
+                </label>
+                <p class="text-xs text-gray-500 mt-2">
+                  JPG, PNG or WebP. Max 2MB.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Username */}
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">
