@@ -93,9 +93,11 @@ export default function RegisterForm(
   };
 
   return (
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-12">
-      <div class="text-center mb-10">
-        <h1 class="text-3xl font-semibold text-gray-900">Create account</h1>
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 md:p-12">
+      <div class="text-center mb-6 sm:mb-8 md:mb-10">
+        <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900">
+          Create account
+        </h1>
       </div>
 
       {error.value && (
@@ -120,7 +122,7 @@ export default function RegisterForm(
         <button
           type="button"
           onClick={handleGoogleSignup}
-          class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 py-3.5 px-4 rounded-xl hover:bg-gray-50 transition-colors font-medium text-base"
+          class="w-full  flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 py-3 px-4 rounded-xl hover:bg-gray-50 active:bg-gray-100 transition-colors font-medium text-sm sm:text-base touch-manipulation"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -211,9 +213,12 @@ export default function RegisterForm(
         </form>
       </div>
 
-      <p class="text-center text-sm text-gray-600 mt-8">
+      <p class="text-center text-xs sm:text-sm text-gray-600 mt-6 sm:mt-8">
         Already have an account?{" "}
-        <a href="/login" class="text-gray-900 hover:text-gray-700 font-medium">
+        <a
+          href="/login"
+          class=" inline-flex items-center text-gray-900 hover:text-gray-700 font-medium touch-manipulation"
+        >
           Sign in
         </a>
       </p>

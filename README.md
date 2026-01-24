@@ -51,7 +51,7 @@ shareable landing page with all your links. Unlike proprietary alternatives
 
 ```bash
 # Clone the repo
-git clone https://github.com/NikolaiKushner/linkhub.git
+git clone https://github.com/NikolaiKushner/Getlnk.git
 
 # Set up environment variables
 cp .env.example .env
@@ -124,9 +124,9 @@ for current priorities.
 ## Support
 
 - 📖 Documentation: See guides above
-- 🐛 Issues: [GitHub Issues](https://github.com/NikolaiKushner/linkhub/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/NikolaiKushner/Getlnk/issues)
 - 💬 Discussions:
-  [GitHub Discussions](https://github.com/NikolaiKushner/linkhub/discussions)
+  [GitHub Discussions](https://github.com/NikolaiKushner/Getlnk/discussions)
 
 ## License
 

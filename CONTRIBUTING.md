@@ -13,7 +13,7 @@ inclusive environment for everyone.
 ### Reporting Bugs
 
 1. Check if the bug has already been reported in
-   [Issues](https://github.com/NikolaiKushner/linkhub/issues)
+   [Issues](https://github.com/NikolaiKushner/Getlnk/issues)
 2. If not, create a new issue with:
    - Clear title and description
    - Steps to reproduce
@@ -23,8 +23,8 @@ inclusive environment for everyone.
 
 ### Suggesting Features
 
-1. Check [Issues](https://github.com/NikolaiKushner/linkhub/issues) and
-   [Discussions](https://github.com/NikolaiKushner/linkhub/discussions) first
+1. Check [Issues](https://github.com/NikolaiKushner/Getlnk/issues) and
+   [Discussions](https://github.com/NikolaiKushner/Getlnk/discussions) first
 2. Open a new issue or discussion with:
    - Clear description of the feature
    - Use case and benefits
@@ -114,7 +114,7 @@ See [MVP_ROADMAP.md](./docs/MVP_ROADMAP.md) for the full roadmap.
 
 ## Questions?
 
-- Open a [Discussion](https://github.com/NikolaiKushner/linkhub/discussions) for
+- Open a [Discussion](https://github.com/NikolaiKushner/Getlnk/discussions) for
   questions
 - Check existing [Documentation](./docs/) for guides
 - Review [AGENTS.md](./AGENTS.md) for development guidelines

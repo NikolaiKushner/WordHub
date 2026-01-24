@@ -11,7 +11,7 @@ export default define.page(function Register(_ctx) {
       <Head>
         <title>Register - Getlnk</title>
       </Head>
-      <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
+      <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-6 sm:py-12">
         <RegisterForm
           supabaseUrl={config.url}
           supabaseAnonKey={config.anonKey}

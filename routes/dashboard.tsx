@@ -45,34 +45,38 @@ export default define.page(async function Dashboard(ctx) {
       <div class="min-h-screen bg-gray-50">
         {/* Header */}
         <header class="bg-white shadow">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-sm text-gray-600">
-                {profile.full_name || user.email}
-              </span>
-              {isAdmin && (
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                  Superadmin
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+              <div>
+                <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
+                  Dashboard
+                </h1>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+                <span class="text-xs sm:text-sm text-gray-600 truncate max-w-[150px] sm:max-w-none">
+                  {profile.full_name || user.email}
                 </span>
-              )}
-              <form action="/api/auth/logout" method="POST">
-                <button
-                  type="submit"
-                  class="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-                >
-                  Logout
-                </button>
-              </form>
+                {isAdmin && (
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    Superadmin
+                  </span>
+                )}
+                <form action="/api/auth/logout" method="POST" class="inline">
+                  <button
+                    type="submit"
+                    class=" px-4 py-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium touch-manipulation"
+                  >
+                    Logout
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Profile Card */}
             <div class="bg-white rounded-lg shadow p-6">
               <div class="flex items-center justify-between mb-4">
@@ -81,7 +85,7 @@ export default define.page(async function Dashboard(ctx) {
                 </h2>
                 <a
                   href="/profile"
-                  class="text-sm text-indigo-600 hover:text-indigo-700"
+                  class=" inline-flex items-center text-sm text-indigo-600 hover:text-indigo-700 touch-manipulation"
                 >
                   Edit
                 </a>
@@ -120,7 +124,7 @@ export default define.page(async function Dashboard(ctx) {
                 <h2 class="text-lg font-semibold">My Links</h2>
                 <a
                   href="/links"
-                  class="text-sm text-white/80 hover:text-white"
+                  class=" inline-flex items-center text-sm text-white/80 hover:text-white touch-manipulation"
                 >
                   Manage →
                 </a>
@@ -154,7 +158,7 @@ export default define.page(async function Dashboard(ctx) {
                   href={`/@${publicProfile.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="mt-4 block w-full text-center px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-white/90 transition-colors font-medium"
+                  class="mt-4 block w-full  flex items-center justify-center text-center px-4 py-3 bg-white text-indigo-600 rounded-lg hover:bg-white/90 active:bg-white/80 transition-colors font-medium touch-manipulation"
                 >
                   View Public Page
                 </a>
@@ -162,7 +166,7 @@ export default define.page(async function Dashboard(ctx) {
               {!publicProfile && (
                 <a
                   href="/links"
-                  class="mt-4 block w-full text-center px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-white/90 transition-colors font-medium"
+                  class="mt-4 block w-full  flex items-center justify-center text-center px-4 py-3 bg-white text-indigo-600 rounded-lg hover:bg-white/90 active:bg-white/80 transition-colors font-medium touch-manipulation"
                 >
                   Create Your Page
                 </a>
@@ -178,13 +182,13 @@ export default define.page(async function Dashboard(ctx) {
                 <div class="space-y-3">
                   <a
                     href="/admin/users"
-                    class="block w-full text-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                    class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 active:bg-purple-800 transition-colors touch-manipulation"
                   >
                     Manage Users
                   </a>
                   <a
                     href="/admin/settings"
-                    class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                    class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 active:bg-gray-400 transition-colors touch-manipulation"
                   >
                     System Settings
                   </a>
@@ -200,19 +204,19 @@ export default define.page(async function Dashboard(ctx) {
               <div class="space-y-3">
                 <a
                   href="/links"
-                  class="block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                  class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors touch-manipulation"
                 >
                   Manage Links
                 </a>
                 <a
                   href="/profile"
-                  class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                  class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 active:bg-gray-400 transition-colors touch-manipulation"
                 >
                   Edit Profile
                 </a>
                 <a
                   href="/settings"
-                  class="block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                  class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 active:bg-gray-400 transition-colors touch-manipulation"
                 >
                   Settings
                 </a>
@@ -221,11 +225,11 @@ export default define.page(async function Dashboard(ctx) {
           </div>
 
           {/* Welcome Message */}
-          <div class="mt-8 bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+          <div class="mt-6 sm:mt-8 bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
               Welcome back, {profile.full_name || user.email}! 👋
             </h2>
-            <p class="text-gray-600">
+            <p class="text-sm sm:text-base text-gray-600">
               This is your personal dashboard. Here you can manage your account,
               view your activity, and access various features of the
               application.

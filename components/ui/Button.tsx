@@ -22,9 +22,9 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  // Base styles
+  // Base styles - add touch-manipulation for better mobile interaction
   const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-colors rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-medium transition-colors rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation active:scale-[0.98]";
 
   // Variant styles
   const variantStyles = {

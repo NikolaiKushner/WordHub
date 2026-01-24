@@ -442,8 +442,8 @@ export default function LinksEditor(
       )}
 
       {/* Profile Settings */}
-      <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">
+      <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
           Profile Settings
         </h2>
 
@@ -491,7 +491,7 @@ export default function LinksEditor(
                     disabled={uploadingAvatar.value}
                     class="hidden"
                   />
-                  <span class="inline-block px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span class="inline-flex items-center justify-center  px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation">
                     {uploadingAvatar.value ? "Uploading..." : "Upload Photo"}
                   </span>
                 </label>
@@ -617,16 +617,16 @@ export default function LinksEditor(
             <label class="block text-sm font-medium text-gray-700 mb-2">
               Theme
             </label>
-            <div class="grid grid-cols-5 gap-2">
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
               {THEMES.map((t) => (
                 <button
                   key={t.value}
                   type="button"
                   onClick={() => theme.value = t.value}
-                  class={`p-2 rounded-lg border-2 transition-all ${
+                  class={` p-2 rounded-lg border-2 transition-all touch-manipulation ${
                     theme.value === t.value
                       ? "border-indigo-500 ring-2 ring-indigo-200"
-                      : "border-gray-200 hover:border-gray-300"
+                      : "border-gray-200 hover:border-gray-300 active:border-gray-400"
                   }`}
                 >
                   <div class={`w-full h-8 rounded ${t.preview}`} />
@@ -647,12 +647,12 @@ export default function LinksEditor(
             <button
               type="button"
               onClick={() => isPublished.value = !isPublished.value}
-              class={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              class={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors touch-manipulation ${
                 isPublished.value ? "bg-indigo-600" : "bg-gray-300"
               }`}
             >
               <span
-                class={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                class={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
                   isPublished.value ? "translate-x-6" : "translate-x-1"
                 }`}
               />
@@ -671,11 +671,13 @@ export default function LinksEditor(
       </div>
 
       {/* Links Management */}
-      <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Your Links</h2>
+      <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
+          Your Links
+        </h2>
 
         {/* Add New Link */}
-        <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <div class="bg-gray-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
           <h3 class="text-sm font-medium text-gray-700 mb-3">Add New Link</h3>
           <div class="space-y-3">
             <Input
@@ -716,7 +718,7 @@ export default function LinksEditor(
               {links.value.map((link, index) => (
                 <div
                   key={link.id}
-                  class={`border rounded-lg p-4 ${
+                  class={`border rounded-lg p-3 sm:p-4 ${
                     link.is_active ? "bg-white" : "bg-gray-50 opacity-60"
                   }`}
                 >
@@ -767,7 +769,7 @@ export default function LinksEditor(
                             type="button"
                             onClick={() => moveLink(index, "up")}
                             disabled={index === 0}
-                            class="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                            class="flex items-center justify-center p-2 text-gray-400 hover:text-gray-600 active:text-gray-800 disabled:opacity-30 touch-manipulation"
                           >
                             ▲
                           </button>
@@ -775,7 +777,7 @@ export default function LinksEditor(
                             type="button"
                             onClick={() => moveLink(index, "down")}
                             disabled={index === links.value.length - 1}
-                            class="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                            class="flex items-center justify-center p-2 text-gray-400 hover:text-gray-600 active:text-gray-800 disabled:opacity-30 touch-manipulation"
                           >
                             ▼
                           </button>
@@ -795,15 +797,15 @@ export default function LinksEditor(
                         </div>
 
                         {/* Actions */}
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1 sm:gap-2">
                           <button
                             type="button"
                             onClick={() => toggleLinkActive(link)}
-                            class={`p-2 rounded ${
+                            class={`  flex items-center justify-center p-2 rounded touch-manipulation ${
                               link.is_active
                                 ? "text-green-600"
                                 : "text-gray-400"
-                            }`}
+                            } active:scale-95`}
                             title={link.is_active ? "Active" : "Inactive"}
                           >
                             {link.is_active ? "●" : "○"}
@@ -811,7 +813,7 @@ export default function LinksEditor(
                           <button
                             type="button"
                             onClick={() => startEditing(link)}
-                            class="p-2 text-gray-400 hover:text-gray-600"
+                            class="  flex items-center justify-center p-2 text-gray-400 hover:text-gray-600 active:text-gray-800 touch-manipulation"
                             title="Edit"
                           >
                             ✎
@@ -819,7 +821,7 @@ export default function LinksEditor(
                           <button
                             type="button"
                             onClick={() => deleteLink(link.id)}
-                            class="p-2 text-gray-400 hover:text-red-600"
+                            class="  flex items-center justify-center p-2 text-gray-400 hover:text-red-600 active:text-red-800 touch-manipulation"
                             title="Delete"
                           >
                             🗑

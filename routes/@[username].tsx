@@ -2,6 +2,7 @@ import { define } from "../utils.ts";
 import { Head } from "fresh/runtime";
 import { supabase } from "../lib/supabase.ts";
 import type { ProfileTheme, PublicProfile } from "../lib/database.types.ts";
+import type { JSX } from "preact";
 
 interface PublicLink {
   id: string;
@@ -137,15 +138,17 @@ export default define.page(async function PublicProfilePage(ctx) {
         <Head>
           <title>Profile Not Found</title>
         </Head>
-        <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-          <div class="text-center">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">404</h1>
-            <p class="text-gray-600 mb-8">
+        <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+          <div class="text-center max-w-sm w-full">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              404
+            </h1>
+            <p class="text-gray-600 mb-8 text-sm sm:text-base">
               This profile doesn't exist or is not public.
             </p>
             <a
               href="/"
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              class="inline-flex items-center justify-center  px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 active:bg-indigo-800 touch-manipulation"
             >
               Go Home
             </a>
@@ -194,29 +197,31 @@ export default define.page(async function PublicProfilePage(ctx) {
           <meta property="og:image" content={profile.avatar_url} />
         )}
       </Head>
-      <div class={`min-h-screen ${styles.bg} py-12 px-4`}>
+      <div class={`min-h-screen ${styles.bg} py-6 sm:py-12 px-4`}>
         <div class="max-w-md mx-auto">
           {/* Profile Card */}
-          <div class={`${styles.card} rounded-2xl p-8 text-center mb-8`}>
+          <div
+            class={`${styles.card} rounded-2xl p-6 sm:p-8 text-center mb-6 sm:mb-8`}
+          >
             {/* Avatar */}
             {profile.avatar_url
               ? (
                 <img
                   src={profile.avatar_url}
                   alt={profile.display_name || profile.username}
-                  class="w-24 h-24 rounded-full mx-auto mb-4 object-cover ring-4 ring-white/50"
+                  class="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-4 object-cover ring-4 ring-white/50"
                 />
               )
               : (
                 <div
-                  class={`w-24 h-24 rounded-full mx-auto mb-4 ${
+                  class={`w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-4 ${
                     theme === "dark" || theme === "gradient" ||
                       theme === "ocean"
                       ? "bg-white/20"
                       : "bg-gray-200"
                   } flex items-center justify-center`}
                 >
-                  <span class={`text-3xl ${styles.text}`}>
+                  <span class={`text-2xl sm:text-3xl ${styles.text}`}>
                     {(profile.display_name || profile.username).charAt(0)
                       .toUpperCase()}
                   </span>
@@ -224,10 +229,12 @@ export default define.page(async function PublicProfilePage(ctx) {
               )}
 
             {/* Name */}
-            <h1 class={`text-2xl font-bold ${styles.text} mb-1`}>
+            <h1 class={`text-xl sm:text-2xl font-bold ${styles.text} mb-1`}>
               {profile.display_name || `@${profile.username}`}
             </h1>
-            <p class={`${styles.text} opacity-70 mb-4`}>@{profile.username}</p>
+            <p class={`text-sm sm:text-base ${styles.text} opacity-70 mb-4`}>
+              @{profile.username}
+            </p>
 
             {/* Bio */}
             {profile.bio && (
@@ -244,7 +251,7 @@ export default define.page(async function PublicProfilePage(ctx) {
                   .length >
                 0 &&
               (
-                <div class="flex justify-center gap-3 mt-4">
+                <div class="flex justify-center gap-3 sm:gap-4 mt-4">
                   {Object.entries(
                     profile.social_links as Record<string, string>,
                   ).map(([platform, value]) => {
@@ -252,19 +259,19 @@ export default define.page(async function PublicProfilePage(ctx) {
                     if (!config || !value) return null;
 
                     return (
-                    <a
-                      key={platform}
-                      href={config.urlPattern(value)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class={`transition-transform hover:scale-110 ${styles.text} opacity-80 hover:opacity-100 inline-flex items-center justify-center`}
-                      title={platform.charAt(0).toUpperCase() +
-                        platform.slice(1)}
-                      aria-label={platform.charAt(0).toUpperCase() +
-                        platform.slice(1)}
-                    >
-                      {config.icon}
-                    </a>
+                      <a
+                        key={platform}
+                        href={config.urlPattern(value)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={`w-11 h-11 sm:w-12 sm:h-12 transition-transform hover:scale-110 active:scale-95 ${styles.text} opacity-80 hover:opacity-100 inline-flex items-center justify-center touch-manipulation`}
+                        title={platform.charAt(0).toUpperCase() +
+                          platform.slice(1)}
+                        aria-label={platform.charAt(0).toUpperCase() +
+                          platform.slice(1)}
+                      >
+                        {config.icon}
+                      </a>
                     );
                   })}
                 </div>
@@ -281,7 +288,7 @@ export default define.page(async function PublicProfilePage(ctx) {
                 }`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class={`block w-full py-4 px-6 rounded-xl text-center font-medium transition-all transform hover:scale-[1.02] ${styles.link}`}
+                class={`block w-full  py-4 px-4 sm:px-6 rounded-xl text-center font-medium transition-all transform active:scale-[0.98] ${styles.link} touch-manipulation`}
               >
                 {link.icon && <span class="mr-2">{link.icon}</span>}
                 {link.title}
@@ -290,10 +297,10 @@ export default define.page(async function PublicProfilePage(ctx) {
           </div>
 
           {/* Footer */}
-          <div class="mt-12 text-center">
+          <div class="mt-8 sm:mt-12 text-center">
             <a
               href="/"
-              class={`text-sm ${styles.text} opacity-50 hover:opacity-70`}
+              class={`text-sm ${styles.text} opacity-50 hover:opacity-70 inline-block  flex items-center justify-center`}
             >
               Create your own page →
             </a>

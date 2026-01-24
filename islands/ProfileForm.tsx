@@ -52,7 +52,7 @@ export default function ProfileForm(
   };
 
   return (
-    <div class="bg-white rounded-lg shadow p-6">
+    <div class="bg-white rounded-lg shadow p-4 sm:p-6">
       {error.value && (
         <div
           class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"

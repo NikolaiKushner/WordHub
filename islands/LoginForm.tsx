@@ -91,9 +91,11 @@ export default function LoginForm(
   };
 
   return (
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-12">
-      <div class="text-center mb-10">
-        <h1 class="text-3xl font-semibold text-gray-900">Welcome back</h1>
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 md:p-12">
+      <div class="text-center mb-6 sm:mb-8 md:mb-10">
+        <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900">
+          Welcome back
+        </h1>
       </div>
 
       {error.value && (
@@ -109,7 +111,7 @@ export default function LoginForm(
         <button
           type="button"
           onClick={handleGoogleLogin}
-          class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 py-3.5 px-4 rounded-xl hover:bg-gray-50 transition-colors font-medium text-base"
+          class="w-full  flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 py-3 px-4 rounded-xl hover:bg-gray-50 active:bg-gray-100 transition-colors font-medium text-sm sm:text-base touch-manipulation"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -172,13 +174,13 @@ export default function LoginForm(
             size="md"
           />
 
-          <div class="flex items-center justify-between pt-2">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
             <div class="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                class="h-4 w-4 text-gray-900 focus:ring-gray-900 border-gray-300 rounded"
+                class="h-5 w-5   text-gray-900 focus:ring-gray-900 border-gray-300 rounded touch-manipulation"
               />
               <label for="remember-me" class="ml-2 block text-sm text-gray-600">
                 Remember me
@@ -188,7 +190,7 @@ export default function LoginForm(
             <div class="text-sm">
               <a
                 href="/forgot-password"
-                class="text-gray-900 hover:text-gray-700 font-medium"
+                class=" inline-flex items-center text-gray-900 hover:text-gray-700 font-medium touch-manipulation"
               >
                 Forgot password?
               </a>
@@ -207,11 +209,11 @@ export default function LoginForm(
         </form>
       </div>
 
-      <p class="text-center text-sm text-gray-600 mt-8">
+      <p class="text-center text-xs sm:text-sm text-gray-600 mt-6 sm:mt-8">
         Don't have an account?{" "}
         <a
           href="/register"
-          class="text-gray-900 hover:text-gray-700 font-medium"
+          class=" inline-flex items-center text-gray-900 hover:text-gray-700 font-medium touch-manipulation"
         >
           Sign up
         </a>

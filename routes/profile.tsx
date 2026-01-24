@@ -24,20 +24,22 @@ export default define.page(async function Profile(ctx) {
         {/* Header */}
         <header class="bg-white shadow">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
               <a
                 href="/dashboard"
-                class="text-indigo-600 hover:text-indigo-700"
+                class=" inline-flex items-center text-indigo-600 hover:text-indigo-700 touch-manipulation"
               >
                 ← Back
               </a>
-              <h1 class="text-2xl font-bold text-gray-900">Edit Profile</h1>
+              <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
+                Edit Profile
+              </h1>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <ProfileForm
             email={user.email!}
             fullName={profile.full_name}
