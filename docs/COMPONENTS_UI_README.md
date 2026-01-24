@@ -238,4 +238,4 @@ These components are used throughout the app:
 
 For full component documentation, see:
 
-- [COMPONENTS.md](../../COMPONENTS.md) - Complete API reference
+- [COMPONENTS.md](./COMPONENTS.md) - Complete API reference

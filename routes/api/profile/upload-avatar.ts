@@ -32,13 +32,14 @@ export const handler = define.handlers({
       if (!validTypes.includes(file.type)) {
         return new Response(
           JSON.stringify({
-            error: "Invalid file type. Please upload a JPEG, PNG, or WebP image.",
+            error:
+              "Invalid file type. Please upload a JPEG, PNG, or WebP image.",
           }),
-            { status: 400, headers: { "Content-Type": "application/json" } },
-          );
-        }
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
 
-        // Validate file size (max 2MB)
+      // Validate file size (max 2MB)
       const maxSize = 2 * 1024 * 1024; // 2MB in bytes
       if (file.size > maxSize) {
         return new Response(

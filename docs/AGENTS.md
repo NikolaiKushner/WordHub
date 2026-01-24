@@ -38,7 +38,8 @@ deno task start    # Serve production build
   `Checkbox`.
 - If a needed component does not exist, add it to `components/ui/` and export it
   from both `components/ui/index.ts` and `components/index.ts`, then update the
-  component docs (`components/ui/README.md` and `COMPONENTS.md`) if applicable.
+  component docs (`docs/COMPONENTS_UI_README.md` and `docs/COMPONENTS.md`) if
+  applicable.
 - Keep styling consistent with the existing design system (Tailwind + DaisyUI
   patterns already in use).
 

@@ -18,7 +18,8 @@ This guide will help you set up the Supabase Storage bucket for avatar uploads.
 
 ## Step 2: Configure Storage Policies (REQUIRED)
 
-**IMPORTANT:** After creating the bucket, you MUST add RLS policies to allow authenticated users to upload.
+**IMPORTANT:** After creating the bucket, you MUST add RLS policies to allow
+authenticated users to upload.
 
 1. Go to **Storage** > **Policies** in your Supabase dashboard
 2. Select the `avatars` bucket
@@ -34,7 +35,9 @@ TO authenticated
 WITH CHECK (bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]);
 ```
 
-**This policy is REQUIRED!** It allows authenticated users to upload files only to their own folder (`{user_id}/avatar.ext`). Without this, you'll get a "row-level security policy" error.
+**This policy is REQUIRED!** It allows authenticated users to upload files only
+to their own folder (`{user_id}/avatar.ext`). Without this, you'll get a
+"row-level security policy" error.
 
 ### Allow Public Read Access (Required)
 

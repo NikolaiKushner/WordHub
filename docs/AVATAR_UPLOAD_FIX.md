@@ -9,7 +9,8 @@ status: 400, statusCode: "403"
 
 ## What This Means
 
-Supabase Storage has Row Level Security (RLS) enabled, but there are no policies allowing authenticated users to upload files to the `avatars` bucket.
+Supabase Storage has Row Level Security (RLS) enabled, but there are no policies
+allowing authenticated users to upload files to the `avatars` bucket.
 
 ## Quick Fix (5 Minutes)
 
@@ -32,6 +33,7 @@ Click **New Policy** and add this policy:
 **USING expression:** (leave empty)
 
 **WITH CHECK expression:**
+
 ```sql
 bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]
 ```
@@ -56,6 +58,7 @@ Click **New Policy** again:
 **Target Roles:** `public`
 
 **USING expression:**
+
 ```sql
 bucket_id = 'avatars'
 ```
@@ -80,6 +83,7 @@ Click **New Policy** one more time:
 **Target Roles:** `authenticated`
 
 **USING expression:**
+
 ```sql
 bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]
 ```
@@ -103,9 +107,12 @@ After adding these policies:
 
 ## What Was Changed in Code
 
-I also updated the API endpoint (`routes/api/profile/upload-avatar.ts`) to use the authenticated Supabase client instead of the anonymous client. This ensures the user's authentication token is used for the upload.
+I also updated the API endpoint (`routes/api/profile/upload-avatar.ts`) to use
+the authenticated Supabase client instead of the anonymous client. This ensures
+the user's authentication token is used for the upload.
 
 **Changes:**
+
 - Now using `createSupabaseClient(session.accessToken)` for storage operations
 - This passes the user's JWT token to Supabase
 - RLS policies can now verify the user's identity
@@ -127,7 +134,8 @@ If you want to skip RLS policies for testing (NOT recommended for production):
 2. Click the bucket settings (⚙️)
 3. Toggle **"Disable RLS"**
 
-**Warning:** This allows anyone to upload to your bucket! Only use for local testing.
+**Warning:** This allows anyone to upload to your bucket! Only use for local
+testing.
 
 ## Still Having Issues?
 
@@ -155,16 +163,20 @@ If you want to skip RLS policies for testing (NOT recommended for production):
 ## Summary of What We Fixed
 
 **Before:**
+
 - ❌ Using anonymous Supabase client
 - ❌ No RLS policies = access denied
 
 **After:**
+
 - ✅ Using authenticated Supabase client
 - ✅ Added RLS policies for upload/read/update
 - ✅ Upload works for logged-in users
 
 ---
 
-**Once you've added these policies, your avatar upload should work perfectly! 🎉**
+**Once you've added these policies, your avatar upload should work perfectly!
+🎉**
 
-If you still have issues after adding the policies, let me know and we can debug further.
+If you still have issues after adding the policies, let me know and we can debug
+further.

@@ -8,8 +8,8 @@
 
 **New to the project?** Read these in order:
 
-1. **[README.md](./README.md)** - Project overview and setup _5 min read - Start
-   here for quick introduction_
+1. **[README.md](../README.md)** - Project overview and setup _5 min read -
+   Start here for quick introduction_
 
 2. **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Executive summary _10 min
    read - High-level overview, current state, and business model_
@@ -111,7 +111,7 @@
 
 **[AGENTS.md](./AGENTS.md)** - AI coding rules _(if exists)_
 **[COMPONENTS.md](./COMPONENTS.md)** - Component documentation _(if exists)_
-**`components/ui/README.md`** - UI component library
+**[COMPONENTS_UI_README.md](./COMPONENTS_UI_README.md)** - UI component library
 
 **Use when:** Writing code, maintaining consistency
 
@@ -255,7 +255,7 @@ linkhub/
 
 ### "How do I...?"
 
-**...set up the project locally?** → See [README.md](./README.md) - Quick Start
+**...set up the project locally?** → See [README.md](../README.md) - Quick Start
 section
 
 **...understand what to build next?** → See [QUICK_START.md](./QUICK_START.md) -
@@ -278,11 +278,12 @@ feature, follow implementation guide
 [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) or
 [product_strategy.md](./product_strategy.md)
 
-**...add a new UI component?** → See `components/ui/README.md` and follow
-existing patterns
+**...add a new UI component?** → See
+[COMPONENTS_UI_README.md](./COMPONENTS_UI_README.md) and follow existing
+patterns
 
-**...deploy to production?** → See [README.md](./README.md) - Deployment section
-(or create deployment guide)
+**...deploy to production?** → See [README.md](../README.md) - Deployment
+section (or create deployment guide)
 
 ---
 
@@ -335,7 +336,7 @@ existing patterns
 
 ```
 Are you new to the project?
-├─ Yes → Start with README.md
+├─ Yes → Start with ../README.md
 │         Then PROJECT_SUMMARY.md
 │         Then QUICK_START.md
 │

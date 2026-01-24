@@ -45,7 +45,7 @@ alternatives (Linktree, etc.), you own your data and can self-host for free.
 - **Custom Domains** - Use your own domain
 - **Email Capture** - Build your email list from your page
 
-📋 **[View Full Roadmap →](./MVP_ROADMAP.md)**
+📋 **[View Full Roadmap →](./docs/MVP_ROADMAP.md)**
 
 ## Quick Start
 
@@ -81,13 +81,14 @@ yourself, customize it, and own your data.
 
 Want to contribute or customize? Check out these guides:
 
-- **[MVP Roadmap](./MVP_ROADMAP.md)** - Full development plan and feature
+- **[MVP Roadmap](./docs/MVP_ROADMAP.md)** - Full development plan and feature
   roadmap
-- **[Quick Start Guide](./QUICK_START.md)** - Immediate next steps for
+- **[Quick Start Guide](./docs/QUICK_START.md)** - Immediate next steps for
   development
-- **[Product Strategy](./product_strategy.md)** - Vision and long-term goals
-- **[Database Setup](./DATABASE_SETUP.md)** - Database configuration guide
-- **[Security Docs](./SECURITY_REFACTORING.md)** - Security architecture
+- **[Product Strategy](./docs/product_strategy.md)** - Vision and long-term
+  goals
+- **[Database Setup](./docs/DATABASE_SETUP.md)** - Database configuration guide
+- **[Security Docs](./docs/SECURITY_REFACTORING.md)** - Security architecture
   overview
 
 ## Project Status
@@ -112,8 +113,8 @@ Want to contribute or customize? Check out these guides:
 
 ## Contributing
 
-Contributions are welcome! Please check the [MVP Roadmap](./MVP_ROADMAP.md) for
-current priorities.
+Contributions are welcome! Please check the [MVP Roadmap](./docs/MVP_ROADMAP.md)
+for current priorities.
 
 1. Fork the repository
 2. Create a feature branch
