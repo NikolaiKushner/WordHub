@@ -58,6 +58,7 @@ export interface Database {
           theme: ProfileTheme;
           is_published: boolean;
           page_views: number;
+          social_links: Json;
           created_at: string;
           updated_at: string;
         };
@@ -71,6 +72,7 @@ export interface Database {
           theme?: ProfileTheme;
           is_published?: boolean;
           page_views?: number;
+          social_links?: Json;
           created_at?: string;
           updated_at?: string;
         };
@@ -84,6 +86,7 @@ export interface Database {
           theme?: ProfileTheme;
           is_published?: boolean;
           page_views?: number;
+          social_links?: Json;
           created_at?: string;
           updated_at?: string;
         };

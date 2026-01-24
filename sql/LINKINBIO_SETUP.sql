@@ -226,3 +226,22 @@ GRANT EXECUTE ON FUNCTION increment_page_views(UUID) TO authenticated;
 -- 'gradient' - Purple/pink gradient
 -- 'minimal'  - Minimalist black and white
 -- 'ocean'    - Blue ocean theme
+
+-- ============================================
+-- 8. Social Links (Migration)
+-- ============================================
+-- Add social_links column to public_profiles for social media icons
+-- Run this if you already have the table created
+
+ALTER TABLE public_profiles
+ADD COLUMN IF NOT EXISTS social_links JSONB DEFAULT '{}'::jsonb;
+
+-- Example social_links structure:
+-- {
+--   "instagram": "username",
+--   "twitter": "handle",
+--   "youtube": "channel_url",
+--   "tiktok": "username",
+--   "linkedin": "profile",
+--   "github": "username"
+-- }

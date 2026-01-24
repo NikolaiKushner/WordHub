@@ -77,8 +77,15 @@ export const handler = define.handlers({
       }
 
       const body = await ctx.req.json();
-      const { username, display_name, bio, avatar_url, theme, is_published } =
-        body;
+      const {
+        username,
+        display_name,
+        bio,
+        avatar_url,
+        theme,
+        is_published,
+        social_links,
+      } = body;
 
       // Validate username if provided
       if (username !== undefined) {
@@ -158,6 +165,7 @@ export const handler = define.handlers({
         if (avatar_url !== undefined) updateData.avatar_url = avatar_url;
         if (theme !== undefined) updateData.theme = theme;
         if (is_published !== undefined) updateData.is_published = is_published;
+        if (social_links !== undefined) updateData.social_links = social_links;
 
         const { data: profile, error } = await supabase
           .from("public_profiles")
@@ -216,6 +224,7 @@ export const handler = define.handlers({
           avatar_url: avatar_url || null,
           theme: theme || "default",
           is_published: is_published || false,
+          social_links: social_links || {},
         };
 
         const { data: profile, error } = await supabase
