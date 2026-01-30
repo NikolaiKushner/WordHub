@@ -12,7 +12,7 @@ export default define.page(function Home(ctx) {
       <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
         <header class="bg-white/80 backdrop-blur-sm shadow-sm">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+            <div class="flex flex-col flex-row justify-between items-center gap-3">
               <div class="flex items-center gap-2">
                 <img
                   src="/logo.svg"

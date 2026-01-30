@@ -6,7 +6,7 @@
 
 ## 🎯 Immediate Action Items (This Week)
 
-### Day 1-2: Avatar Upload (HIGH PRIORITY)
+### Day 1-2: Avatar Upload (HIGH PRIORITY) ✅ COMPLETE
 
 **Estimated Time:** 6-8 hours
 
@@ -39,7 +39,7 @@ export const handler = async (req: Request): Promise<Response> => {
 
 ---
 
-### Day 3: Social Links (HIGH PRIORITY)
+### Day 3: Social Links (HIGH PRIORITY) ✅ COMPLETE
 
 **Estimated Time:** 4-6 hours
 
@@ -159,7 +159,9 @@ improvements:
 
 ---
 
-### Day 6-7: Onboarding Flow (HIGH PRIORITY)
+### Day 6-7: Onboarding Flow (HIGH PRIORITY) ✅ COMPLETE
+
+**Status:** Implemented.
 
 **Estimated Time:** 4-6 hours
 
@@ -167,8 +169,9 @@ improvements:
 
 **Steps:**
 
-1. Create `islands/OnboardingWizard.tsx`
-2. Show after first login
+1. Create `islands/OnboardingWizard.tsx` — done
+2. Show after first login — wizard appears on dashboard when
+   `onboarding_completed` is false
 3. Steps:
    - Welcome! Let's set up your page
    - Choose a username
@@ -177,6 +180,13 @@ improvements:
    - Publish your page!
 4. Progress indicator (1 of 5)
 5. Skip option
+
+**Setup:** Run the onboarding migration in Supabase SQL Editor so the dashboard
+can track completion:
+
+- `sql/ONBOARDING_MIGRATION.sql` — adds `user_profiles.onboarding_completed`
+  (default false). After running, new or existing users see the wizard on
+  dashboard until they complete or skip it.
 
 ---
 

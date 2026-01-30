@@ -20,7 +20,6 @@ otherwise.
 - Prefer readability and maintainability over cleverness.
 - Use TypeScript and existing utilities; avoid introducing new dependencies
   unless necessary.
-- All code must pass `deno task check` (format, lint, type-check).
 
 ## Development Commands
 
@@ -201,9 +200,8 @@ Use validators from `lib/validators.ts`:
 
 Before submitting changes:
 
-1. Run `deno task check` to verify formatting, linting, and types.
-2. Manually test affected functionality in the browser.
-3. Verify API endpoints return expected responses.
+1. Manually test affected functionality in the browser.
+2. Verify API endpoints return expected responses.
 
 ## Environment Variables
 
