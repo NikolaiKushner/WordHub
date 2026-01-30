@@ -1,21 +1,19 @@
 # Getlnk MVP & Monetization Roadmap
 
-**Project Status:** 🟢 Core MVP Features ~90% Complete
+**Project Status:** 🟢 MVP feature-complete; polish, legal pages & launch prep remaining
 
-**Last Updated:** January 24, 2026
+**Last Updated:** January 2026
 
 ---
 
 ## Executive Summary
 
-Getlnk is a link-in-bio platform with a solid foundation. The core
-infrastructure (auth, database, links management, public profiles, basic
-analytics) is **already implemented**. This roadmap focuses on:
+Getlnk is a link-in-bio platform with core MVP features **implemented**. This roadmap focuses on:
 
-1. **Phase 1 (MVP Polish)** - 1-2 weeks - Complete remaining MVP features
-2. **Phase 2 (Launch Ready)** - 1 week - Testing, polish, marketing prep
-3. **Phase 3 (Monetization)** - 2-3 weeks - Stripe integration, premium features
-4. **Phase 4 (Growth)** - Ongoing - Advanced features, scaling
+1. **Phase 1 (MVP Polish)** — Remaining polish items and **mandatory informational pages**
+2. **Phase 2 (Launch Ready)** — Testing, legal, marketing prep
+3. **Phase 3 (Monetization)** — Stripe, premium tiers (post-launch)
+4. **Phase 4 (Growth)** — Advanced features, scaling
 
 ---
 
@@ -38,99 +36,45 @@ analytics) is **already implemented**. This roadmap focuses on:
 | Database Schema       | ✅ Complete | Well-structured with RLS                            |
 | Security              | ✅ Complete | Fresh Islands (no `dangerouslySetInnerHTML`)        |
 | Mobile Responsiveness | ✅ Complete | All pages optimized for mobile (44px touch targets) |
+| **Avatar Upload**     | ✅ Complete | Supabase Storage, profile & public profile         |
+| **Social Links**      | ✅ Complete | Instagram, X, YouTube, TikTok, LinkedIn, GitHub     |
+| **Onboarding Flow**  | ✅ Complete | 5-step wizard, skip, `onboarding_completed` flag    |
+| **Landing Page**      | ✅ Complete | Business-oriented copy, benefits, FAQ-style          |
+| **robots.txt**        | ✅ Complete | Allow public pages, disallow dashboard/API/auth      |
+| **Favicon**           | ✅ Complete | Referenced in `_app.tsx`                            |
 
 ### 🟡 Partially Implemented
 
-| Feature               | Status     | What's Missing                     |
-| --------------------- | ---------- | ---------------------------------- |
-| Analytics Dashboard   | 🟡 Basic   | No time-series, no charts          |
-| Profile Customization | 🟡 Partial | No avatar upload                   |
-| SEO                   | 🟡 Basic   | Basic meta tags, could be enhanced |
+| Feature               | Status     | What's Missing / Optional                          |
+| --------------------- | ---------- | --------------------------------------------------- |
+| Analytics             | 🟡 Basic   | Counters on dashboard; no dedicated page or charts |
+| SEO                   | 🟡 Basic   | Basic meta; OG/Twitter cards could be enhanced      |
+| Link icons/emojis     | 🟡 Schema  | `links.icon` exists; optional UI picker for MVP     |
 
-### ❌ Not Yet Implemented
+### ❌ Not Yet Implemented (MVP / Launch)
 
-| Feature               | Priority | Effort |
-| --------------------- | -------- | ------ |
-| Avatar Upload         | High     | Medium |
-| Social Icons/Links    | High     | Low    |
-| Analytics Charts      | Medium   | Medium |
-| Stripe Integration    | High     | High   |
-| Subscription Tiers    | High     | Medium |
-| Usage Limits/Gating   | High     | Medium |
-| Custom Domain Support | Low      | High   |
-| Email Capture Widget  | Medium   | Medium |
-| Scheduling Links      | Low      | Medium |
+| Feature               | Priority   | Effort  | Notes                                  |
+| --------------------- | ---------- | ------- | -------------------------------------- |
+| **Privacy Policy**    | Mandatory  | Low     | Required for launch (GDPR, trust)      |
+| **Terms of Service**  | Mandatory  | Low     | Required for launch                    |
+| Analytics page        | Medium     | Medium  | Dedicated route + time-series/charts   |
+| Stripe / Monetization | Post-MVP   | High    | Phase 3                                |
+| Custom domains, etc.  | Later       | Various | Phase 4                                |
 
 ---
 
 ## Phase 1: MVP Polish (1-2 Weeks)
 
-**Goal:** Complete remaining MVP features for a polished v1.0 launch
+**Goal:** Complete remaining polish and **mandatory informational pages** for v1.0 launch
 
-### Week 1: Core Features
+### ✅ Completed (Phase 1)
 
-#### 1.1 Avatar Upload & Management 🎨
+- **1.1 Avatar Upload** — Done. Supabase Storage, `routes/api/profile/upload-avatar.ts`, UI in profile/links flow.
+- **1.2 Social Links** — Done. `social_links` JSONB, editor in LinksEditor, display on `routes/@[username].tsx`.
+- **1.5 Onboarding Flow** — Done. `islands/OnboardingWizard.tsx`, 5 steps, skip, `user_profiles.onboarding_completed`.
+- **1.7 Mobile Responsiveness** — Done (see section below).
 
-**Priority:** HIGH | **Effort:** 6-8 hours
-
-**Why:** Users want to personalize their profiles with photos
-
-**Implementation:**
-
-- Use Supabase Storage for avatar uploads
-- Add upload UI in profile editor
-- Image cropping/resizing (max 2MB, 500x500px)
-- Fallback to initials if no avatar
-
-**Files to modify:**
-
-- `islands/LinksEditor.tsx` - Add upload component
-- `routes/api/profile/upload-avatar.ts` - NEW endpoint
-- Update `public_profiles` table - already has `avatar_url` field ✓
-
-**Technical approach:**
-
-```typescript
-// Supabase Storage bucket: avatars
-// Path: {user_id}/avatar.jpg
-// Public URL stored in public_profiles.avatar_url
-```
-
----
-
-#### 1.2 Social Links Section 🔗
-
-**Priority:** HIGH | **Effort:** 4-6 hours
-
-**Why:** Users want quick social media icons (Instagram, Twitter, etc.)
-
-**Implementation:**
-
-- Add `social_links` JSONB column to `public_profiles`
-- Predefined platforms: Instagram, Twitter, TikTok, YouTube, LinkedIn, GitHub
-- Icons appear as small buttons at top of public profile
-- Different from main links - these are icon-only
-
-**Files to modify:**
-
-- `sql/LINKINBIO_SETUP.sql` - Add migration
-- `lib/database.types.ts` - Add type
-- `islands/LinksEditor.tsx` - Add social links editor
-- `routes/@[username].tsx` - Display social icons
-
-**Design:**
-
-```
-Profile Card
-  [Avatar]
-  Name / @username
-  Bio
-  [🔵 Instagram] [🐦 Twitter] [📺 YouTube]  ← Social icons row
-
-Regular Links Below
-```
-
----
+### Remaining: Core Polish
 
 #### 1.3 Analytics Dashboard Improvements 📊
 
@@ -176,27 +120,31 @@ Regular Links Below
 
 ---
 
-### Week 2: Polish & UX
+### Mandatory for Launch: Informational Pages 📄
 
-#### 1.5 Onboarding Flow 🚀
+**Priority:** Mandatory | **Effort:** 2-4 hours total
 
-**Priority:** HIGH | **Effort:** 4-6 hours
+**Why:** Legal compliance, trust, and app-store / payment-provider requirements.
 
-**Why:** First impressions matter
+| Page             | Mandatory | Notes                                                |
+| ---------------- | --------- | ---------------------------------------------------- |
+| **Privacy Policy** | Yes       | Required for GDPR, CCPA, and user trust.             |
+| **Terms of Service** | Yes    | Required for SaaS; covers use, liability, account.   |
+| Help / FAQ       | Optional  | Reduces support load; can be a simple static page.    |
+| About            | Optional  | Nice for credibility; not required for MVP launch.   |
 
 **Implementation:**
 
-- Welcome modal after first signup
-- Step-by-step guide: "Set username → Add links → Publish"
-- Progress indicator
-- Skip option
+- Add `routes/privacy.tsx` — static (or markdown-rendered) Privacy Policy.
+- Add `routes/terms.tsx` — static Terms of Service.
+- Link from footer on landing and (optionally) from login/register/settings.
+- Reserve usernames `privacy`, `terms`, `help`, `about` (already in `check-username.ts`).
 
-**New component:**
-
-- `islands/OnboardingWizard.tsx`
-- Store onboarding state in localStorage or user profile
+**Content:** Use a template or lawyer-drafted text; adapt to your data practices (Supabase, cookies, analytics). Update when you add Stripe or tracking.
 
 ---
+
+### Optional Polish
 
 #### 1.6 Link Icons/Emojis 🎨
 
@@ -275,9 +223,18 @@ All pages have been comprehensively optimized for mobile devices:
 
 ## Phase 2: Launch Ready (1 Week)
 
-**Goal:** Test, polish, prepare for public launch
+**Goal:** Test, legal pages, polish, prepare for public launch
 
-### 2.1 Testing & QA 🧪
+**Done:** Landing page enhanced (business copy, benefits, FAQ-style). Favicon and robots.txt in place.
+
+### 2.1 Mandatory Legal Pages 📄
+
+- [ ] **Privacy Policy** — `routes/privacy.tsx`; link in footer and auth/settings.
+- [ ] **Terms of Service** — `routes/terms.tsx`; link in footer and auth/settings.
+
+See **Phase 1 → Mandatory for Launch: Informational Pages** for details.
+
+### 2.2 Testing & QA 🧪
 
 **Priority:** HIGH | **Effort:** 8-10 hours
 
@@ -293,7 +250,7 @@ All pages have been comprehensively optimized for mobile devices:
 
 ---
 
-### 2.2 Documentation 📚
+### 2.3 Documentation 📚
 
 **Priority:** HIGH | **Effort:** 4-6 hours
 
@@ -307,25 +264,15 @@ All pages have been comprehensively optimized for mobile devices:
 
 ---
 
-### 2.3 Marketing Site & Landing Page 🎯
+### 2.4 Marketing Site & Landing Page 🎯
 
-**Priority:** HIGH | **Effort:** 6-8 hours
+**Status:** ✅ Done for MVP. `routes/index.tsx` has business-oriented hero, benefits grid, social-proof style block, FAQ-style reassurance, and CTAs.
 
-**Current state:** `routes/index.tsx` exists but could be enhanced
-
-**Improve:**
-
-- Hero section with clear value prop
-- Feature showcase with screenshots
-- Pricing preview (even if free for now)
-- Testimonials section (collect beta user feedback)
-- Comparison table (vs Linktree, Beacons, etc.)
-- Email capture for waitlist/launch
-- Clear CTA: "Get Started Free"
+**Optional enhancements (post-launch):** Pricing preview, testimonials, comparison table, email capture.
 
 ---
 
-### 2.4 Branding & Design Polish 🎨
+### 2.5 Branding & Design Polish 🎨
 
 **Priority:** MEDIUM | **Effort:** 4-6 hours
 
@@ -341,7 +288,7 @@ All pages have been comprehensively optimized for mobile devices:
 
 ---
 
-### 2.5 Performance Optimization ⚡
+### 2.6 Performance Optimization ⚡
 
 **Priority:** MEDIUM | **Effort:** 4-6 hours
 

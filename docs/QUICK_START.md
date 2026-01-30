@@ -1,12 +1,46 @@
 # Quick Start Guide - Next Steps
 
-**Date:** January 22, 2026 **Status:** MVP ~85% Complete, Ready for Polish Phase
+**Last Updated:** January 2026  
+**Status:** MVP feature-complete; legal pages and polish remaining
 
 ---
 
-## 🎯 Immediate Action Items (This Week)
+## ✅ What’s Done (MVP)
 
-### Day 1-2: Avatar Upload (HIGH PRIORITY) ✅ COMPLETE
+- **Auth & profiles** — Email + Google OAuth, user profiles, roles
+- **Public pages** — `/@username`, themes, publish/draft, page views & click tracking
+- **Links** — Full CRUD, reorder, `routes/links.tsx` + `islands/LinksEditor.tsx`
+- **Avatar upload** — `routes/api/profile/upload-avatar.ts`, Supabase Storage
+- **Social links** — JSONB on public profile, editor in LinksEditor, display on `@[username]`
+- **Onboarding** — `islands/OnboardingWizard.tsx`, 5 steps + skip, `sql/ONBOARDING_MIGRATION.sql`
+- **Landing** — Business-oriented copy, benefits, FAQ-style, CTAs
+- **Basics** — robots.txt, favicon, mobile-responsive UI
+
+---
+
+## 🎯 What’s Next (Priority)
+
+### Mandatory for Launch: Legal Pages
+
+- **Privacy Policy** — Add `routes/privacy.tsx`; link from footer and auth/settings. Required for GDPR/trust.
+- **Terms of Service** — Add `routes/terms.tsx`; link from footer and auth/settings. Required for SaaS.
+
+See `docs/MVP_ROADMAP.md` → Phase 1 “Mandatory for Launch: Informational Pages” for details.
+
+### Optional: Analytics Page
+
+- **Create:** `routes/analytics.tsx` + `routes/api/analytics/stats.ts`
+- **Show:** Page views over time, total clicks, top links, basic referrer data. Keep simple (e.g. CSS bars).
+
+### Optional: Link Icons / Emojis
+
+- Add emoji or icon picker in LinksEditor; store in existing `links.icon` field.
+
+---
+
+## 📋 Reference: Completed Items (No Action)
+
+### Day 1-2: Avatar Upload ✅ COMPLETE
 
 **Estimated Time:** 6-8 hours
 
@@ -39,7 +73,7 @@ export const handler = async (req: Request): Promise<Response> => {
 
 ---
 
-### Day 3: Social Links (HIGH PRIORITY) ✅ COMPLETE
+### Day 3: Social Links ✅ COMPLETE
 
 **Estimated Time:** 4-6 hours
 
@@ -103,7 +137,7 @@ const COMMON_EMOJIS = [
 
 ---
 
-### Day 5: Mobile Responsiveness Audit (HIGH PRIORITY) ✅ COMPLETE
+### Day 5: Mobile Responsiveness Audit ✅ COMPLETE
 
 **Estimated Time:** 4-6 hours\
 **Actual Time:** ~5 hours\
@@ -159,7 +193,7 @@ improvements:
 
 ---
 
-### Day 6-7: Onboarding Flow (HIGH PRIORITY) ✅ COMPLETE
+### Day 6-7: Onboarding Flow ✅ COMPLETE
 
 **Status:** Implemented.
 
@@ -190,34 +224,17 @@ can track completion:
 
 ---
 
-## 📊 Week 2: Analytics & Polish
+## 📊 Week 2: Analytics & Polish (Optional)
 
-### Analytics Dashboard
+### Analytics Dashboard (Optional)
 
 **Create:** `routes/analytics.tsx` + `routes/api/analytics/stats.ts`
 
-**Show:**
+**Show:** Page views over time (7/30 days), total clicks, top links, basic referrer data. Keep it simple (e.g. CSS bars).
 
-- Page views over time (last 7/30 days)
-- Total clicks
-- Top performing links
-- Basic referrer data
+### Landing Page
 
-**Keep it simple:** Use CSS bars instead of heavy chart libraries initially.
-
----
-
-### Landing Page Enhancement
-
-**Update:** `routes/index.tsx`
-
-**Sections:**
-
-- Hero: Clear value prop
-- Features with icons
-- Pricing preview
-- CTA: "Get Started Free"
-- Footer with links
+**Status:** ✅ Done. `routes/index.tsx` has hero, benefits grid, social-proof style block, FAQ-style, CTAs. Optional later: pricing preview, testimonials, email capture.
 
 ---
 
@@ -272,15 +289,17 @@ ALTER TABLE user_profiles ADD COLUMN subscription_ends_at TIMESTAMPTZ;
 
 ### Pre-Launch
 
-- [ ] Avatar upload working
-- [ ] Social links working
-- [ ] Mobile responsive
-- [ ] All bugs fixed
-- [ ] Onboarding flow complete
-- [ ] Landing page polished
-- [ ] Documentation written
-- [ ] 20+ beta users tested
-- [ ] 10+ testimonials collected
+- [x] Avatar upload working
+- [x] Social links working
+- [x] Mobile responsive
+- [x] Onboarding flow complete
+- [x] Landing page polished (business copy, benefits, FAQ-style)
+- [ ] **Privacy Policy** published and linked
+- [ ] **Terms of Service** published and linked
+- [ ] All critical bugs fixed
+- [ ] Documentation written (user/self-host/deploy)
+- [ ] 20+ beta users tested (optional)
+- [ ] 10+ testimonials collected (optional)
 
 ### Payment Setup
 
@@ -293,11 +312,11 @@ ALTER TABLE user_profiles ADD COLUMN subscription_ends_at TIMESTAMPTZ;
 
 ### Legal & Compliance
 
-- [ ] Privacy Policy published
-- [ ] Terms of Service published
-- [ ] GDPR compliance (for EU users)
-- [ ] Cookie consent (if tracking)
-- [ ] Refund policy clear
+- [ ] **Privacy Policy** published and linked (mandatory)
+- [ ] **Terms of Service** published and linked (mandatory)
+- [ ] GDPR compliance (for EU users; Privacy Policy covers data practices)
+- [ ] Cookie consent (if tracking beyond essential)
+- [ ] Refund policy (when Stripe/payments added)
 
 ### Marketing
 
@@ -381,27 +400,24 @@ STRIPE_WEBHOOK_SECRET=whsec_xxx (after webhook setup)
 
 ## 🐛 Known Issues / Tech Debt
 
-### High Priority
+### High Priority (Before / At Launch)
 
-1. No avatar upload functionality yet
-2. No social links support yet
-3. Analytics is very basic (just counters)
-4. No user onboarding flow
-5. No email notifications
-6. No rate limiting on API endpoints
+1. **Privacy Policy and Terms of Service** — Not yet implemented; mandatory for launch.
+2. Analytics is basic (counters on dashboard only; no dedicated analytics page or charts).
+3. No rate limiting on API endpoints (consider for production).
 
 ### Medium Priority
 
-7. No comprehensive error logging
-8. No automated testing
-9. No CI/CD pipeline
-10. Email templates are default Supabase ones
+4. No comprehensive error logging (consider Sentry or similar).
+5. No automated testing (unit / integration / E2E).
+6. No CI/CD pipeline.
+7. Email templates are default Supabase ones.
 
 ### Low Priority
 
-11. No dark mode (except in public profile themes)
-12. No i18n support
-13. No PWA features (offline, install prompt)
+8. No dark mode app-wide (only public profile themes).
+9. No i18n support.
+10. No PWA features (offline, install prompt).
 
 ---
 
@@ -596,32 +612,28 @@ git push origin main
 
 ### ✅ Complete (Working Well)
 
-- Authentication system
+- Authentication (email + Google OAuth)
 - User profiles and roles
-- Public profile pages
-- Links CRUD operations
-- Basic analytics (counters)
-- 5 theme options
-- Username system
-- Admin panel
-- Database with RLS
+- Public profile pages (`/@username`), themes, publish/draft
+- Links CRUD, reorder, click tracking, page views
+- Avatar upload (Supabase Storage)
+- Social links (editor + display)
+- Onboarding wizard (5 steps, skip)
+- Landing page (business copy, benefits, FAQ-style)
+- robots.txt, favicon, mobile-responsive UI
+- Admin panel, database with RLS
 
-### 🟡 Partial (Needs Enhancement)
+### 🟡 Partial (Optional for MVP)
 
-- Profile customization (no avatar upload)
-- Analytics (no charts, no time-series)
-- Mobile UX (needs audit)
-- Onboarding (non-existent)
+- Analytics (counters only; no dedicated page or charts)
+- SEO (basic meta; OG/Twitter could be enhanced)
+- Link icons/emojis (schema exists; UI picker optional)
 
-### ❌ Not Started
+### ❌ Not Started (MVP / Launch)
 
-- Avatar upload
-- Social links
-- Stripe integration
-- Subscription tiers
-- Advanced analytics
-- Email notifications
-- Custom domains
+- **Privacy Policy** and **Terms of Service** (mandatory)
+- Stripe integration, subscription tiers (Phase 3)
+- Advanced analytics, email capture, custom domains (Phase 4)
 
 ---
 
@@ -639,4 +651,4 @@ in isolation.
 
 ---
 
-**Ready to build? Start with Day 1: Avatar Upload! 🚀**
+**Ready to launch? Add Privacy Policy and Terms of Service, then run through the Launch Checklist. See `docs/MVP_ROADMAP.md` for full roadmap.**
