@@ -251,12 +251,6 @@ export default define.page(function Home(ctx) {
             </div>
           </div>
         </main>
-
-        <footer class="bg-white/80 backdrop-blur-sm border-t border-gray-200 mt-12 sm:mt-16 md:mt-20">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 text-center text-sm sm:text-base text-gray-600">
-            <p>The open-source link-in-bio</p>
-          </div>
-        </footer>
       </div>
     </>
   );

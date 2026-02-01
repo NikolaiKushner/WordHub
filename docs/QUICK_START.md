@@ -1,6 +1,6 @@
 # Quick Start Guide - Next Steps
 
-**Last Updated:** January 2026  
+**Last Updated:** January 2026\
 **Status:** MVP feature-complete; legal pages and polish remaining
 
 ---
@@ -8,11 +8,14 @@
 ## ✅ What’s Done (MVP)
 
 - **Auth & profiles** — Email + Google OAuth, user profiles, roles
-- **Public pages** — `/@username`, themes, publish/draft, page views & click tracking
+- **Public pages** — `/@username`, themes, publish/draft, page views & click
+  tracking
 - **Links** — Full CRUD, reorder, `routes/links.tsx` + `islands/LinksEditor.tsx`
 - **Avatar upload** — `routes/api/profile/upload-avatar.ts`, Supabase Storage
-- **Social links** — JSONB on public profile, editor in LinksEditor, display on `@[username]`
-- **Onboarding** — `islands/OnboardingWizard.tsx`, 5 steps + skip, `sql/ONBOARDING_MIGRATION.sql`
+- **Social links** — JSONB on public profile, editor in LinksEditor, display on
+  `@[username]`
+- **Onboarding** — `islands/OnboardingWizard.tsx`, 5 steps + skip,
+  `sql/ONBOARDING_MIGRATION.sql`
 - **Landing** — Business-oriented copy, benefits, FAQ-style, CTAs
 - **Basics** — robots.txt, favicon, mobile-responsive UI
 
@@ -22,15 +25,19 @@
 
 ### Mandatory for Launch: Legal Pages
 
-- **Privacy Policy** — Add `routes/privacy.tsx`; link from footer and auth/settings. Required for GDPR/trust.
-- **Terms of Service** — Add `routes/terms.tsx`; link from footer and auth/settings. Required for SaaS.
+- **Privacy Policy** — Add `routes/privacy.tsx`; link from footer and
+  auth/settings. Required for GDPR/trust.
+- **Terms of Service** — Add `routes/terms.tsx`; link from footer and
+  auth/settings. Required for SaaS.
 
-See `docs/MVP_ROADMAP.md` → Phase 1 “Mandatory for Launch: Informational Pages” for details.
+See `docs/MVP_ROADMAP.md` → Phase 1 “Mandatory for Launch: Informational Pages”
+for details.
 
 ### Optional: Analytics Page
 
 - **Create:** `routes/analytics.tsx` + `routes/api/analytics/stats.ts`
-- **Show:** Page views over time, total clicks, top links, basic referrer data. Keep simple (e.g. CSS bars).
+- **Show:** Page views over time, total clicks, top links, basic referrer data.
+  Keep simple (e.g. CSS bars).
 
 ### Optional: Link Icons / Emojis
 
@@ -230,11 +237,14 @@ can track completion:
 
 **Create:** `routes/analytics.tsx` + `routes/api/analytics/stats.ts`
 
-**Show:** Page views over time (7/30 days), total clicks, top links, basic referrer data. Keep it simple (e.g. CSS bars).
+**Show:** Page views over time (7/30 days), total clicks, top links, basic
+referrer data. Keep it simple (e.g. CSS bars).
 
 ### Landing Page
 
-**Status:** ✅ Done. `routes/index.tsx` has hero, benefits grid, social-proof style block, FAQ-style, CTAs. Optional later: pricing preview, testimonials, email capture.
+**Status:** ✅ Done. `routes/index.tsx` has hero, benefits grid, social-proof
+style block, FAQ-style, CTAs. Optional later: pricing preview, testimonials,
+email capture.
 
 ---
 
@@ -402,8 +412,10 @@ STRIPE_WEBHOOK_SECRET=whsec_xxx (after webhook setup)
 
 ### High Priority (Before / At Launch)
 
-1. **Privacy Policy and Terms of Service** — Not yet implemented; mandatory for launch.
-2. Analytics is basic (counters on dashboard only; no dedicated analytics page or charts).
+1. **Privacy Policy and Terms of Service** — Not yet implemented; mandatory for
+   launch.
+2. Analytics is basic (counters on dashboard only; no dedicated analytics page
+   or charts).
 3. No rate limiting on API endpoints (consider for production).
 
 ### Medium Priority
@@ -651,4 +663,5 @@ in isolation.
 
 ---
 
-**Ready to launch? Add Privacy Policy and Terms of Service, then run through the Launch Checklist. See `docs/MVP_ROADMAP.md` for full roadmap.**
+**Ready to launch? Add Privacy Policy and Terms of Service, then run through the
+Launch Checklist. See `docs/MVP_ROADMAP.md` for full roadmap.**

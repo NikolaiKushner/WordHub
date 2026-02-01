@@ -37,6 +37,15 @@ export default define.page(async function Settings(ctx) {
         {/* Main Content */}
         <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <SettingsForm />
+          <p class="mt-8 text-sm text-gray-500">
+            <a href="/privacy" class="text-indigo-600 hover:text-indigo-700">
+              Privacy Policy
+            </a>
+            {" · "}
+            <a href="/terms" class="text-indigo-600 hover:text-indigo-700">
+              Terms of Service
+            </a>
+          </p>
         </main>
       </div>
     </>

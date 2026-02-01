@@ -1,6 +1,7 @@
 # Getlnk MVP & Monetization Roadmap
 
-**Project Status:** 🟢 MVP feature-complete; polish, legal pages & launch prep remaining
+**Project Status:** 🟢 MVP feature-complete; polish, legal pages & launch prep
+remaining
 
 **Last Updated:** January 2026
 
@@ -8,9 +9,11 @@
 
 ## Executive Summary
 
-Getlnk is a link-in-bio platform with core MVP features **implemented**. This roadmap focuses on:
+Getlnk is a link-in-bio platform with core MVP features **implemented**. This
+roadmap focuses on:
 
-1. **Phase 1 (MVP Polish)** — Remaining polish items and **mandatory informational pages**
+1. **Phase 1 (MVP Polish)** — Remaining polish items and **mandatory
+   informational pages**
 2. **Phase 2 (Launch Ready)** — Testing, legal, marketing prep
 3. **Phase 3 (Monetization)** — Stripe, premium tiers (post-launch)
 4. **Phase 4 (Growth)** — Advanced features, scaling
@@ -36,42 +39,46 @@ Getlnk is a link-in-bio platform with core MVP features **implemented**. This ro
 | Database Schema       | ✅ Complete | Well-structured with RLS                            |
 | Security              | ✅ Complete | Fresh Islands (no `dangerouslySetInnerHTML`)        |
 | Mobile Responsiveness | ✅ Complete | All pages optimized for mobile (44px touch targets) |
-| **Avatar Upload**     | ✅ Complete | Supabase Storage, profile & public profile         |
+| **Avatar Upload**     | ✅ Complete | Supabase Storage, profile & public profile          |
 | **Social Links**      | ✅ Complete | Instagram, X, YouTube, TikTok, LinkedIn, GitHub     |
-| **Onboarding Flow**  | ✅ Complete | 5-step wizard, skip, `onboarding_completed` flag    |
-| **Landing Page**      | ✅ Complete | Business-oriented copy, benefits, FAQ-style          |
-| **robots.txt**        | ✅ Complete | Allow public pages, disallow dashboard/API/auth      |
+| **Onboarding Flow**   | ✅ Complete | 5-step wizard, skip, `onboarding_completed` flag    |
+| **Landing Page**      | ✅ Complete | Business-oriented copy, benefits, FAQ-style         |
+| **robots.txt**        | ✅ Complete | Allow public pages, disallow dashboard/API/auth     |
 | **Favicon**           | ✅ Complete | Referenced in `_app.tsx`                            |
 
 ### 🟡 Partially Implemented
 
-| Feature               | Status     | What's Missing / Optional                          |
-| --------------------- | ---------- | --------------------------------------------------- |
-| Analytics             | 🟡 Basic   | Counters on dashboard; no dedicated page or charts |
-| SEO                   | 🟡 Basic   | Basic meta; OG/Twitter cards could be enhanced      |
-| Link icons/emojis     | 🟡 Schema  | `links.icon` exists; optional UI picker for MVP     |
+| Feature           | Status    | What's Missing / Optional                          |
+| ----------------- | --------- | -------------------------------------------------- |
+| Analytics         | 🟡 Basic  | Counters on dashboard; no dedicated page or charts |
+| SEO               | 🟡 Basic  | Basic meta; OG/Twitter cards could be enhanced     |
+| Link icons/emojis | 🟡 Schema | `links.icon` exists; optional UI picker for MVP    |
 
 ### ❌ Not Yet Implemented (MVP / Launch)
 
-| Feature               | Priority   | Effort  | Notes                                  |
-| --------------------- | ---------- | ------- | -------------------------------------- |
-| **Privacy Policy**    | Mandatory  | Low     | Required for launch (GDPR, trust)      |
-| **Terms of Service**  | Mandatory  | Low     | Required for launch                    |
-| Analytics page        | Medium     | Medium  | Dedicated route + time-series/charts   |
-| Stripe / Monetization | Post-MVP   | High    | Phase 3                                |
-| Custom domains, etc.  | Later       | Various | Phase 4                                |
+| Feature               | Priority  | Effort  | Notes                                |
+| --------------------- | --------- | ------- | ------------------------------------ |
+| **Privacy Policy**    | Mandatory | Low     | Required for launch (GDPR, trust)    |
+| **Terms of Service**  | Mandatory | Low     | Required for launch                  |
+| Analytics page        | Medium    | Medium  | Dedicated route + time-series/charts |
+| Stripe / Monetization | Post-MVP  | High    | Phase 3                              |
+| Custom domains, etc.  | Later     | Various | Phase 4                              |
 
 ---
 
 ## Phase 1: MVP Polish (1-2 Weeks)
 
-**Goal:** Complete remaining polish and **mandatory informational pages** for v1.0 launch
+**Goal:** Complete remaining polish and **mandatory informational pages** for
+v1.0 launch
 
 ### ✅ Completed (Phase 1)
 
-- **1.1 Avatar Upload** — Done. Supabase Storage, `routes/api/profile/upload-avatar.ts`, UI in profile/links flow.
-- **1.2 Social Links** — Done. `social_links` JSONB, editor in LinksEditor, display on `routes/@[username].tsx`.
-- **1.5 Onboarding Flow** — Done. `islands/OnboardingWizard.tsx`, 5 steps, skip, `user_profiles.onboarding_completed`.
+- **1.1 Avatar Upload** — Done. Supabase Storage,
+  `routes/api/profile/upload-avatar.ts`, UI in profile/links flow.
+- **1.2 Social Links** — Done. `social_links` JSONB, editor in LinksEditor,
+  display on `routes/@[username].tsx`.
+- **1.5 Onboarding Flow** — Done. `islands/OnboardingWizard.tsx`, 5 steps, skip,
+  `user_profiles.onboarding_completed`.
 - **1.7 Mobile Responsiveness** — Done (see section below).
 
 ### Remaining: Core Polish
@@ -126,21 +133,23 @@ Getlnk is a link-in-bio platform with core MVP features **implemented**. This ro
 
 **Why:** Legal compliance, trust, and app-store / payment-provider requirements.
 
-| Page             | Mandatory | Notes                                                |
-| ---------------- | --------- | ---------------------------------------------------- |
-| **Privacy Policy** | Yes       | Required for GDPR, CCPA, and user trust.             |
-| **Terms of Service** | Yes    | Required for SaaS; covers use, liability, account.   |
-| Help / FAQ       | Optional  | Reduces support load; can be a simple static page.    |
-| About            | Optional  | Nice for credibility; not required for MVP launch.   |
+| Page                 | Mandatory | Notes                                              |
+| -------------------- | --------- | -------------------------------------------------- |
+| **Privacy Policy**   | Yes       | Required for GDPR, CCPA, and user trust.           |
+| **Terms of Service** | Yes       | Required for SaaS; covers use, liability, account. |
+| Help / FAQ           | Optional  | Reduces support load; can be a simple static page. |
+| About                | Optional  | Nice for credibility; not required for MVP launch. |
 
 **Implementation:**
 
 - Add `routes/privacy.tsx` — static (or markdown-rendered) Privacy Policy.
 - Add `routes/terms.tsx` — static Terms of Service.
 - Link from footer on landing and (optionally) from login/register/settings.
-- Reserve usernames `privacy`, `terms`, `help`, `about` (already in `check-username.ts`).
+- Reserve usernames `privacy`, `terms`, `help`, `about` (already in
+  `check-username.ts`).
 
-**Content:** Use a template or lawyer-drafted text; adapt to your data practices (Supabase, cookies, analytics). Update when you add Stripe or tracking.
+**Content:** Use a template or lawyer-drafted text; adapt to your data practices
+(Supabase, cookies, analytics). Update when you add Stripe or tracking.
 
 ---
 
@@ -225,12 +234,15 @@ All pages have been comprehensively optimized for mobile devices:
 
 **Goal:** Test, legal pages, polish, prepare for public launch
 
-**Done:** Landing page enhanced (business copy, benefits, FAQ-style). Favicon and robots.txt in place.
+**Done:** Landing page enhanced (business copy, benefits, FAQ-style). Favicon
+and robots.txt in place.
 
 ### 2.1 Mandatory Legal Pages 📄
 
-- [ ] **Privacy Policy** — `routes/privacy.tsx`; link in footer and auth/settings.
-- [ ] **Terms of Service** — `routes/terms.tsx`; link in footer and auth/settings.
+- [ ] **Privacy Policy** — `routes/privacy.tsx`; link in footer and
+      auth/settings.
+- [ ] **Terms of Service** — `routes/terms.tsx`; link in footer and
+      auth/settings.
 
 See **Phase 1 → Mandatory for Launch: Informational Pages** for details.
 
@@ -266,9 +278,11 @@ See **Phase 1 → Mandatory for Launch: Informational Pages** for details.
 
 ### 2.4 Marketing Site & Landing Page 🎯
 
-**Status:** ✅ Done for MVP. `routes/index.tsx` has business-oriented hero, benefits grid, social-proof style block, FAQ-style reassurance, and CTAs.
+**Status:** ✅ Done for MVP. `routes/index.tsx` has business-oriented hero,
+benefits grid, social-proof style block, FAQ-style reassurance, and CTAs.
 
-**Optional enhancements (post-launch):** Pricing preview, testimonials, comparison table, email capture.
+**Optional enhancements (post-launch):** Pricing preview, testimonials,
+comparison table, email capture.
 
 ---
 
