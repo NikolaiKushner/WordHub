@@ -137,6 +137,7 @@ export default define.page(async function PublicProfilePage(ctx) {
       <>
         <Head>
           <title>Profile Not Found</title>
+          <meta name="robots" content="noindex" />
         </Head>
         <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4">
           <div class="text-center max-w-sm w-full">
@@ -178,12 +179,25 @@ export default define.page(async function PublicProfilePage(ctx) {
   return (
     <>
       <Head>
-        <title>{profile.display_name || `@${profile.username}`}</title>
+        {/* Basic Meta */}
+        <title>{profile.display_name || `@${profile.username}`} - Getlnk</title>
         <meta
           name="description"
           content={profile.bio ||
-            `Check out ${profile.display_name || profile.username}'s Getlnk`}
+            `Check out ${
+              profile.display_name || profile.username
+            }'s links on Getlnk`}
         />
+        <meta
+          name="keywords"
+          content={`${profile.username}, links, creator, ${
+            profile.display_name || "profile"
+          }`}
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph (Facebook, Discord, Slack) */}
         <meta
           property="og:title"
           content={profile.display_name || `@${profile.username}`}
@@ -193,9 +207,58 @@ export default define.page(async function PublicProfilePage(ctx) {
           content={profile.bio ||
             `Check out ${profile.display_name || profile.username}'s links`}
         />
+        <meta property="og:type" content="profile" />
+        <meta
+          property="og:url"
+          content={`https://getlnk.xyz/@${profile.username}`}
+        />
         {profile.avatar_url && (
-          <meta property="og:image" content={profile.avatar_url} />
+          <>
+            <meta property="og:image" content={profile.avatar_url} />
+            <meta property="og:image:width" content="400" />
+            <meta property="og:image:height" content="400" />
+            <meta property="og:image:type" content="image/jpeg" />
+          </>
         )}
+        <meta property="og:site_name" content="Getlnk" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={profile.display_name || `@${profile.username}`}
+        />
+        <meta
+          name="twitter:description"
+          content={profile.bio ||
+            `Check out ${profile.display_name || profile.username}'s links`}
+        />
+        {profile.avatar_url && (
+          <meta name="twitter:image" content={profile.avatar_url} />
+        )}
+        <meta name="twitter:creator" content={`@${profile.username}`} />
+
+        {/* JSON-LD Structured Data (Person Schema) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: profile.display_name || profile.username,
+            url: `https://getlnk.xyz/@${profile.username}`,
+            ...(profile.avatar_url && { image: profile.avatar_url }),
+            ...(profile.bio && { description: profile.bio }),
+            ...(profile.social_links && {
+              sameAs: Object.entries(
+                profile.social_links as Record<string, string>,
+              )
+                .map(([platform, value]) => {
+                  const config = SOCIAL_PLATFORMS[platform];
+                  return config ? config.urlPattern(value) : null;
+                })
+                .filter(Boolean),
+            }),
+          })}
+        </script>
       </Head>
       <div class={`min-h-screen ${styles.bg} py-6 sm:py-12 px-4`}>
         <div class="max-w-md mx-auto">
