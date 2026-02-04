@@ -223,6 +223,12 @@ export default define.page(async function Dashboard(ctx) {
                       Manage Links
                     </a>
                     <a
+                      href="/analytics"
+                      class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors touch-manipulation"
+                    >
+                      View Analytics
+                    </a>
+                    <a
                       href="/profile"
                       class="block w-full  flex items-center justify-center text-center px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 active:bg-gray-400 transition-colors touch-manipulation"
                     >
