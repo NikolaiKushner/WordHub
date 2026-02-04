@@ -25,7 +25,7 @@ export default define.page(function Privacy(_ctx) {
             Privacy Policy
           </h1>
           <p class="text-sm text-gray-500 mb-8">
-            Last updated: January 2026
+            Last updated: February 2026
           </p>
 
           <div class="prose prose-gray max-w-none space-y-6 text-gray-700">
