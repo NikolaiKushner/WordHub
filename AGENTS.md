@@ -37,8 +37,7 @@ deno task start    # Serve production build
   `Checkbox`.
 - If a needed component does not exist, add it to `components/ui/` and export it
   from both `components/ui/index.ts` and `components/index.ts`, then update the
-  component docs (`docs/COMPONENTS_UI_README.md` and `docs/COMPONENTS.md`) if
-  applicable.
+  component docs (`docs/COMPONENTS.md`) if applicable.
 - Keep styling consistent with the existing design system (Tailwind + DaisyUI
   patterns already in use).
 
@@ -214,11 +213,13 @@ Required environment variables (set in `.env`):
 ## Documentation Files
 
 - `README.md` — Project overview and quick start
-- `QUICK_START.md` — Development setup guide
-- `DATABASE_SETUP.md` — Database configuration
-- `MVP_ROADMAP.md` — Feature roadmap and priorities
-- `COMPONENTS.md` — UI component documentation
-- `SECURITY_REFACTORING.md` — Security architecture
+- `docs/QUICK_START.md` — Development setup and next steps
+- `docs/DATABASE_SETUP.md` — Database and auth configuration
+- `docs/MVP_ROADMAP.md` — Feature roadmap and priorities
+- `docs/COMPONENTS.md` — UI component documentation
+- `docs/SECURITY_REFACTORING.md` — Security architecture
+- `docs/LAUNCH_CHECKLIST.md` — Pre-launch validation
+- `docs/FEATURE_RECOMMENDATIONS.md` — Post-launch feature priorities
 
 ### Documentation File Naming Rules
 
