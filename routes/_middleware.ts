@@ -1,8 +1,19 @@
 import { define } from "../utils.ts";
 import { getAuthUser } from "../lib/auth.ts";
+import { applyRateLimit } from "../lib/rate-limit.ts";
 
 export default define.middleware(async (ctx) => {
   const url = new URL(ctx.req.url);
+
+  // Rate limit API routes
+  if (url.pathname.startsWith("/api/")) {
+    const result = applyRateLimit(ctx.req);
+    if ("response" in result) {
+      return result.response;
+    }
+    // Store rate limit headers to add to the response later
+    ctx.state.rateLimitHeaders = result.headers;
+  }
 
   // Public routes that don't require authentication
   const publicRoutes = [
@@ -56,5 +67,15 @@ export default define.middleware(async (ctx) => {
     });
   }
 
-  return ctx.next();
+  const response = await ctx.next();
+
+  // Add rate limit headers to API responses
+  const rlHeaders = ctx.state.rateLimitHeaders;
+  if (rlHeaders) {
+    for (const [key, value] of Object.entries(rlHeaders)) {
+      response.headers.set(key, value);
+    }
+  }
+
+  return response;
 });

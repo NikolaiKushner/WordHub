@@ -6,6 +6,7 @@ import type { AuthUser } from "./lib/auth.ts";
 export interface State {
   shared: string;
   authUser?: AuthUser;
+  rateLimitHeaders?: Record<string, string>;
 }
 
 export const define = createDefine<State>();
