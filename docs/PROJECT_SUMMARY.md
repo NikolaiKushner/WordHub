@@ -34,10 +34,10 @@ create a shareable profile page at `getlnk.xyz/@username` with all their links.
 
 ## Pricing Model
 
-| Tier         | Price  | Key Features                        |
-| ------------ | ------ | ----------------------------------- |
-| **Free**     | $0     | 5 links, basic themes               |
-| **Pro**      | $3/mo  | Unlimited links, all themes, no ads |
+| Tier         | Price | Key Features                        |
+| ------------ | ----- | ----------------------------------- |
+| **Free**     | $0    | 5 links, basic themes               |
+| **Pro**      | $3/mo | Unlimited links, all themes, no ads |
 | **Business** | $9/mo | Pro + custom domain, scheduling     |
 
 ## Competitive Position
