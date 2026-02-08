@@ -110,7 +110,7 @@ const supabase = createSupabaseClient(session.accessToken);
 - Keep endpoint concerns focused and return consistent JSON.
 - Organized by feature:
   - `api/auth/` — Authentication (login, logout, password reset)
-  - `api/links/` — Link CRUD operations
+  - `api/dashboard/` — Link CRUD operations
   - `api/profile/` — User profile management
   - `api/settings/` — User settings
   - `api/admin/` — Admin-only operations

@@ -17,7 +17,7 @@ the Supabase SQL Editor.
 ## 3. Test
 
 1. Start dev server: `deno task dev`
-2. Log in and go to `/links`
+2. Log in and go to `/dashboard`
 3. Upload a profile photo (JPG, PNG, or WebP, max 2MB)
 4. Check your public profile at `/@yourname`
 

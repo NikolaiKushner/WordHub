@@ -326,12 +326,6 @@ export default function AnalyticsIsland() {
               href="/dashboard"
               class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium touch-manipulation"
             >
-              ← Back to Dashboard
-            </a>
-            <a
-              href="/links"
-              class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium touch-manipulation"
-            >
               Manage Links
             </a>
           </div>
